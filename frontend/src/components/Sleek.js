@@ -77,7 +77,12 @@ const styles = theme => ({
 
 class Sleek extends React.Component {
     render() {
-        const { classes, theme, isSideMenuOpen } = this.props;
+        const {
+            classes,
+            theme,
+            isSideMenuOpen,
+            toggleSideMenu
+        } = this.props;
 
         return (
             <div>
@@ -88,7 +93,7 @@ class Sleek extends React.Component {
                     })}
                 >
                     <Toolbar disableGutters={!isSideMenuOpen}>
-                        <IconButton
+                        <IconButton onClick={() => toggleSideMenu(true)}
                             color="inherit"
                             aria-label="Show scripts"
                         >
@@ -115,7 +120,7 @@ class Sleek extends React.Component {
                     <div
                         className={classes.drawerHeader}
                     >
-                        <IconButton>
+                        <IconButton onClick={() => toggleSideMenu(false)}>
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
