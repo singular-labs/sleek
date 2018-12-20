@@ -9,7 +9,7 @@ import ListItemAvatar from "@material-ui/core/es/ListItemAvatar/ListItemAvatar";
 
 
 const styles = theme => ({
-    scriptDescription: {
+    scriptInfo: {
         width: '95%',
         maxWidth: 575,
         backgroundColor: theme.palette.background.paper,
@@ -21,16 +21,20 @@ const styles = theme => ({
 });
 
 
-class ScriptDescription extends React.Component {
+class ScriptInfo extends React.Component {
     render() {
-        const { classes, key, name, description } = this.props;
+        const { classes, scriptID, scriptName, scriptDescription, updateChosenScript } = this.props;
 
         // TODO: add an option to display \n in description
         return (
-            <ListItem key={key} className={classes.scriptDescription}>
+            <ListItem button
+                key={scriptID}
+                className={classes.scriptInfo}
+                onClick={() => updateChosenScript(scriptID)}
+            >
                 <ListItemText
-                    primary={name}
-                    secondary={description}
+                    primary={scriptName}
+                    secondary={scriptDescription}
                 />
                 <ListItemAvatar>
                     <Avatar>
@@ -42,4 +46,4 @@ class ScriptDescription extends React.Component {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(ScriptDescription);
+export default withStyles(styles, { withTheme: true })(ScriptInfo);

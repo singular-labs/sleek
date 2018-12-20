@@ -56,7 +56,8 @@ class Sleek extends React.Component {
         const {
             classes,
             filteredScripts,
-            updateScriptsSearch
+            updateScriptsSearch,
+            updateChosenScript
         } = this.props;
 
         return (
@@ -91,7 +92,10 @@ class Sleek extends React.Component {
 
                     <Divider />
 
-                    < ScriptsList filteredScripts={filteredScripts}/>
+                    < ScriptsList
+                        filteredScripts={filteredScripts}
+                        updateChosenScript={updateChosenScript}
+                    />
                 </Drawer>
             </div>
         );

@@ -1,4 +1,4 @@
-import {UPDATE_SCRIPTS_SEARCH} from "./actions";
+import {UPDATE_CHOSEN_SCRIPT, UPDATE_SCRIPTS_SEARCH} from "./actions";
 
 
 const initialState = {
@@ -36,6 +36,7 @@ const initialState = {
             created_by: "Itamar Hartstein"
         }
     ],
+    chosenScriptID: null,
     searchString: null
 };
 
@@ -68,6 +69,11 @@ function reducer(state=initialState, action) {
                 filteredScripts: filterScripts(availableScripts, action.searchString)
             };
 
+        case UPDATE_CHOSEN_SCRIPT:
+            return {
+                ...state,
+                chosenScriptID: action.scriptID
+            };
 
         default:
             return state;

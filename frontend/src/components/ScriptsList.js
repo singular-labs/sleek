@@ -3,7 +3,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 
-import ScriptDescription from './ScriptDescription'
+import ScriptInfo from './ScriptInfo'
 
 
 const styles = theme => ({
@@ -17,15 +17,15 @@ const styles = theme => ({
 
 class ScriptsList extends React.Component {
     render () {
-        const { classes, filteredScripts } = this.props;
+        const { classes, filteredScripts, updateChosenScript } = this.props;
 
         const scripts = filteredScripts.map((script) => {
             return (
-                <ScriptDescription
-                    key={script.id}
-                    name={script.name}
-                    description={script.description}
-                    created_by={script.created_by}
+                <ScriptInfo key={script.id}
+                    scriptID={script.id}
+                    scriptName={script.name}
+                    scriptDescription={script.description}
+                    updateChosenScript={updateChosenScript}
                 />
             )
         });

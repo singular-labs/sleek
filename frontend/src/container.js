@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 
 import Sleek from "./components/Sleek";
-import { updateScriptsSearch } from "./actions";
+import { updateScriptsSearch, updateChosenScript } from "./actions";
 
 
 function mapStateToProps(state) {
@@ -13,7 +13,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateScriptsSearch: (searchString) => dispatch(updateScriptsSearch(searchString))
+        updateScriptsSearch: (searchString) => dispatch(updateScriptsSearch(searchString)),
+        updateChosenScript: (searchString) => dispatch(updateChosenScript(searchString))
     }
 }
 
