@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/es/TextField/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
+import ScriptsList from "./ScriptsList";
 
 
 const drawerWidth = 575;
@@ -54,7 +55,7 @@ class Sleek extends React.Component {
     render() {
         const {
             classes,
-            theme,
+            availableScripts
         } = this.props;
 
         return (
@@ -68,17 +69,13 @@ class Sleek extends React.Component {
                         paper: classes.drawerPaper,
                     }}
                 >
-                    <div
-                        className={classes.drawerHeader}
-                    >
+                    <div className={classes.drawerHeader}>
                         <TextField
                             className={classes.searchField}
                             placeholder="Search.."
                             InputProps={{
                                 endAdornment: (
-                                    <InputAdornment
-                                        className={classes.searchAdornment}
-                                    >
+                                    <InputAdornment className={classes.searchAdornment}>
                                         <SearchIcon
                                             className={classes.searchIcon}
                                             color="primary"
@@ -91,6 +88,8 @@ class Sleek extends React.Component {
                     </div>
 
                     <Divider />
+
+                    < ScriptsList availableScripts={availableScripts}/>
                 </Drawer>
             </div>
         );
