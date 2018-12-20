@@ -55,7 +55,8 @@ class Sleek extends React.Component {
     render() {
         const {
             classes,
-            availableScripts
+            filteredScripts,
+            updateScriptsSearch
         } = this.props;
 
         return (
@@ -72,6 +73,7 @@ class Sleek extends React.Component {
                     <div className={classes.drawerHeader}>
                         <TextField
                             className={classes.searchField}
+                            onChange={(event) => updateScriptsSearch(event.target.value)}
                             placeholder="Search.."
                             InputProps={{
                                 endAdornment: (
@@ -89,7 +91,7 @@ class Sleek extends React.Component {
 
                     <Divider />
 
-                    < ScriptsList availableScripts={availableScripts}/>
+                    < ScriptsList filteredScripts={filteredScripts}/>
                 </Drawer>
             </div>
         );

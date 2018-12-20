@@ -1,17 +1,19 @@
 import { connect } from "react-redux"
 
 import Sleek from "./components/Sleek";
-// import { toggleSideMenu } from "./actions";
+import { updateScriptsSearch } from "./actions";
 
 
 function mapStateToProps(state) {
     return {
-        availableScripts: state.availableScripts,
+        filteredScripts: state.filteredScripts,
+        searchString: state.searchString
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        updateScriptsSearch: (searchString) => dispatch(updateScriptsSearch(searchString))
     }
 }
 

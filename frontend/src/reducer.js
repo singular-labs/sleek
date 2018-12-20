@@ -1,4 +1,4 @@
-// import {TOGGLE_SIDE_MENU} from "./actions";
+import {UPDATE_SCRIPTS_SEARCH} from "./actions";
 
 
 const initialState = {
@@ -18,12 +18,56 @@ const initialState = {
             created_at: "2018-12-21",
             created_by: "Itamar Hartstein"
         }
-    ]
+    ],
+    filteredScripts: [
+        {
+            id: 'simple_script',
+            name: 'Simple Script',
+            description: 'The most amazing simple script',
+            output_type: 'excel',
+            created_at: "2018-12-20",
+            created_by: "Noa Hadar"
+        }, {
+            id: 'simple_script_2',
+            name: 'Simple Script 2.0',
+            description: 'The most amazing simple script EVER!! It does everything you ever wanted!',
+            output_type: 'excel',
+            created_at: "2018-12-21",
+            created_by: "Itamar Hartstein"
+        }
+    ],
+    searchString: null
 };
 
 
+function filterScripts(scripts, filterString) {
+    if (filterString === null) {
+        return scripts
+    } else {
+        const searchableScriptAttributes = ['name', 'description'];
+        const lowerFilterString = filterString.toLowerCase();
+
+        return scripts.filter((script) => {
+            return searchableScriptAttributes.some((scriptAttr) => {
+                    return script[scriptAttr].toLowerCase().indexOf(lowerFilterString) > -1
+                }
+            )
+        })
+
+    }
+}
+
 function reducer(state=initialState, action) {
     switch (action.type) {
+        case UPDATE_SCRIPTS_SEARCH:
+            const availableScripts = state.availableScripts.slice();
+
+            return {
+                ...state,
+                searchString: action.searchString,
+                filteredScripts: filterScripts(availableScripts, action.searchString)
+            };
+
 
         default:
             return state;

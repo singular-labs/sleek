@@ -1,8 +1,8 @@
-export const TOGGLE_SIDE_MENU = "TOGGLE_SIDE_MENU";
+export const UPDATE_SCRIPTS_SEARCH = "UPDATE_SCRIPTS_SEARCH";
 
-export function toggleSideMenu(shouldOpen) {
+export function updateScriptsSearch(searchString) {
     return {
-        "type": TOGGLE_SIDE_MENU,
-        "shouldOpen": shouldOpen
+        "type": UPDATE_SCRIPTS_SEARCH,
+        "searchString": searchString
     }
 }
