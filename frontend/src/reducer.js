@@ -1,40 +1,8 @@
-import {UPDATE_CHOSEN_SCRIPT, UPDATE_SCRIPTS_SEARCH, CHANGE_PARAM_VALUE} from "./actions";
+import {UPDATE_CHOSEN_SCRIPT, UPDATE_SCRIPTS_SEARCH, CHANGE_PARAM_VALUE, UPDATE_AVAIALBLE_SCRIPTS} from "./actions";
 
 const initialState = {
-    availableScripts: [
-        {
-            id: 'simple_script',
-            name: 'Simple Script',
-            description: 'The most amazing simple script',
-            output_type: 'excel',
-            created_at: "2018-12-20",
-            created_by: "Noa Hadar"
-        }, {
-            id: 'simple_script_2',
-            name: 'Simple Script 2.0',
-            description: 'The most amazing simple script EVER!! It does everything you ever wanted!',
-            output_type: 'excel',
-            created_at: "2018-12-21",
-            created_by: "Itamar Hartstein"
-        }
-    ],
-    filteredScripts: [
-        {
-            id: 'simple_script',
-            name: 'Simple Script',
-            description: 'The most amazing simple script',
-            output_type: 'excel',
-            created_at: "2018-12-20",
-            created_by: "Noa Hadar"
-        }, {
-            id: 'simple_script_2',
-            name: 'Simple Script 2.0',
-            description: 'The most amazing simple script EVER!! It does everything you ever wanted!',
-            output_type: 'excel',
-            created_at: "2018-12-21",
-            created_by: "Itamar Hartstein"
-        }
-    ],
+    availableScripts: [],
+    filteredScripts: [],
     chosenScriptID: null,
     searchString: null,
     chosenScript: {
@@ -81,6 +49,13 @@ function filterScripts(scripts, filterString) {
 
 function reducer(state=initialState, action) {
     switch (action.type) {
+        case UPDATE_AVAIALBLE_SCRIPTS:
+            return {
+                ...state,
+                availableScripts: action.scripts,
+                filteredScripts: action.scripts
+            };
+
         case UPDATE_SCRIPTS_SEARCH:
             const availableScripts = state.availableScripts.slice();
 

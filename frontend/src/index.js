@@ -1,20 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import reducer from './reducer'
-import Sleek from './container'
-
-import { createStore } from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 import { Provider } from 'react-redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga'
 
 import './index.css';
+import reducer from './reducer'
+import Sleek from './container'
+import {rootSaga} from "./sagas";
 
 
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     reducer,
-    devToolsEnhancer()                          // This enables us use the Redux Dev-tools chrome extensions
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+sagaMiddleware.run(rootSaga);
+
 
 ReactDOM.render(
     <Provider store={store}>

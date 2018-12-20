@@ -8,6 +8,10 @@ const STATIC_DIR = path.resolve(BUILD_DIR, '../../backend/src/static');
 const RESOURCES_DIR = path.resolve(__dirname, 'resources');
 
 module.exports = {
+    entry: [
+        "@babel/polyfill",
+        "./src/index.js"
+    ],
     module: {
         rules: [
             {
