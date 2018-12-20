@@ -17,7 +17,7 @@ class Sleek extends React.Component {
                 <AppBar
                     position="fixed"
                 >
-                    <Toolbar disableGutters={!open}>
+                    <Toolbar disableGutters={!this.props.scriptsMenuOpen}>
                         <IconButton
                             color="inherit"
                             aria-label="Show scripts"
@@ -32,7 +32,7 @@ class Sleek extends React.Component {
                 <Drawer
                     variant="persistent"
                     anchor="left"
-                    open={open}
+                    open={this.props.scriptsMenuOpen}
                 >
                     <div>
                         <IconButton>
