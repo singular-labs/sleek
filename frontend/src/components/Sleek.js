@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
 import ScriptsList from "./ScriptsList";
+import ScriptRunner from "./ScriptRunner";
 
 
 const drawerWidth = 575;
@@ -50,14 +51,16 @@ const styles = theme => ({
 
 
 
-
 class Sleek extends React.Component {
     render() {
         const {
             classes,
             filteredScripts,
             updateScriptsSearch,
-            updateChosenScript
+            updateChosenScript,
+            chosenScript,
+            paramValues,
+            onParamChange
         } = this.props;
 
         return (
@@ -97,6 +100,13 @@ class Sleek extends React.Component {
                         updateChosenScript={updateChosenScript}
                     />
                 </Drawer>
+                Bla
+                <ScriptRunner
+                    name={chosenScript.name}
+                    params={chosenScript.params}
+                    paramValues={paramValues}
+                    onParamChange={onParamChange}
+                />
             </div>
         );
     }
