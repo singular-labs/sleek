@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Sleek from './components/Sleek.js'
+
 import { createStore } from 'redux'
 import { Provider } from 'react-redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
@@ -12,14 +14,6 @@ import './index.css';
 //     reducer,
 //     devToolsEnhancer()                          // This enables us use the Redux Dev-tools chrome extensions
 // );
-
-function Sleek() {
-    return (
-        <div>
-            Sleek!
-        </div>
-    )
-}
 
 ReactDOM.render(
     <Sleek />,
