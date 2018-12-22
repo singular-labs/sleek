@@ -4,9 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import {withStyles} from "@material-ui/core";
 import ScriptParam from "./ScriptParam";
 import Divider from "@material-ui/core/es/Divider/Divider";
-import Tabs from "@material-ui/core/es/Tabs/Tabs";
-import Tab from "@material-ui/core/es/Tab/Tab";
-import Paper from "@material-ui/core/es/Paper/Paper";
+import ScriptResults from "./ScriptResults";
+
 
 const styles = {
     content: {
@@ -23,11 +22,6 @@ const styles = {
         marginTop: 40,
         marginBottom: 20
     },
-    scriptResults: {
-        marginLeft: 20,
-        flexGrow: 1,
-        marginBottom: 20
-    },
     scriptTitle: {
         fontWeight: "bold",
         fontSize: 28
@@ -36,11 +30,9 @@ const styles = {
         float: "right",
         marginRight: 20
     },
-    logArea: {
-        marginTop: 10,
-        height: "100%"
-    }
+
 };
+
 
 class ScriptRunner extends React.Component {
     render() {
@@ -67,11 +59,6 @@ class ScriptRunner extends React.Component {
             </Grid>
         ));
 
-        let resultStr = "not ready";
-        if (scriptResult) {
-            resultStr = scriptResult["success"] ? "Success" : "Failure";
-        }
-
         return (
             <div className={classes.content}>
                 <div className={classes.scriptTop}>
@@ -86,18 +73,9 @@ class ScriptRunner extends React.Component {
                     </Grid>
                 </div>
                 <Divider/>
-                <div className={classes.scriptResults}>
-                    <Tabs
-                        indicatorColor="primary"
-                        textColor="primary"
-                        value={0}
-                    >
-                        <Tab label="Log" />
-                    </Tabs>
-                    <Paper elevation={1} className={classes.logArea}>
-                        This is a log - {resultStr}
-                    </Paper>
-                </div>
+                <ScriptResults
+                    scriptResult={scriptResult}
+                />
             </div>
         );
     }
