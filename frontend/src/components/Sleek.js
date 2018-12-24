@@ -58,7 +58,7 @@ class Sleek extends React.Component {
             filteredScripts,
             updateScriptsSearch,
             updateChosenScript,
-            chosenScript,
+            chosenScriptDetails,
             paramValues,
             onParamChange
         } = this.props;
@@ -102,8 +102,8 @@ class Sleek extends React.Component {
                 </Drawer>
                 Bla
                 <ScriptRunner
-                    name={chosenScript.name}
-                    params={chosenScript.params}
+                    name={chosenScriptDetails.name}
+                    params={chosenScriptDetails.params}
                     paramValues={paramValues}
                     onParamChange={onParamChange}
                 />

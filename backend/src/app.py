@@ -21,6 +21,43 @@ AVAILABLE_SCRIPTS = [
     }
 ]
 
+SCRIPT_DETAILS = {
+    "simple_script": {
+        "id": "simple_script",
+        "name": "Simple Script",
+        "description":  'The most amazing simple script',
+        "params": [
+            {
+                "name": "param1",
+                "type": "string"
+            }, {
+                "name": "param2",
+                "type": "string"
+            }, {
+                "name": "param3",
+                "type": "string"
+            }, {
+                "name": "param4",
+                "type": "string"
+            }
+        ]
+    },
+    "simple_script_2": {
+        "id": "simple_script_2",
+        "name": "Simple Script 2",
+        "description":  'The most amazing simple script',
+        "params": [
+            {
+                "name": "param1",
+                "type": "string"
+            }, {
+                "name": "param2",
+                "type": "string"
+            }
+        ]
+    }
+}
+
 
 @app.route("/")
 def index():
@@ -30,3 +67,13 @@ def index():
 @app.route("/api/get_available_scripts")
 def get_available_scripts():
     return jsonify(AVAILABLE_SCRIPTS)
+
+
+@app.route("/api/get_script_details")
+def get_script_details():
+    script_id = request.args.get("script_id")
+    if script_id is None:
+        raise Exception("OMG")
+
+    return jsonify(SCRIPT_DETAILS[script_id])
+

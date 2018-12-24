@@ -1,11 +1,17 @@
-import {UPDATE_CHOSEN_SCRIPT, UPDATE_SCRIPTS_SEARCH, CHANGE_PARAM_VALUE, UPDATE_AVAIALBLE_SCRIPTS} from "./actions";
+import {
+    UPDATE_CHOSEN_SCRIPT,
+    UPDATE_SCRIPTS_SEARCH,
+    CHANGE_PARAM_VALUE,
+    UPDATE_AVAILABLE_SCRIPTS,
+    UPDATE_CHOSEN_SCRIPT_DETAILS
+} from "./actions";
 
 const initialState = {
     availableScripts: [],
     filteredScripts: [],
-    chosenScriptID: null,
     searchString: null,
-    chosenScript: {
+    chosenScriptID: null,
+    chosenScriptDetails: {
         id: "simple_script",
         name: "Simple Script",
         description:  'The most amazing simple script',
@@ -49,7 +55,7 @@ function filterScripts(scripts, filterString) {
 
 function reducer(state=initialState, action) {
     switch (action.type) {
-        case UPDATE_AVAIALBLE_SCRIPTS:
+        case UPDATE_AVAILABLE_SCRIPTS:
             return {
                 ...state,
                 availableScripts: action.scripts,
@@ -69,6 +75,12 @@ function reducer(state=initialState, action) {
             return {
                 ...state,
                 chosenScriptID: action.scriptID
+            };
+
+        case UPDATE_CHOSEN_SCRIPT_DETAILS:
+            return {
+                ...state,
+                chosenScriptDetails: action.scriptDetails
             };
 
         case CHANGE_PARAM_VALUE:
