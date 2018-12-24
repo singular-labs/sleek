@@ -11,28 +11,8 @@ const initialState = {
     filteredScripts: [],
     searchString: null,
     chosenScriptID: null,
-    chosenScriptDetails: {
-        id: "simple_script",
-        name: "Simple Script",
-        description:  'The most amazing simple script',
-        params: [
-            {
-                name: "param1",
-                type: "string"
-            }, {
-                name: "param2",
-                type: "string"
-            }, {
-                name: "param3",
-                type: "string"
-            }, {
-                name: "param4",
-                type: "string"
-            }
-        ]
-    },
-    paramValues: {
-    }
+    chosenScriptDetails: {},
+    paramValues: {}
 };
 
 
