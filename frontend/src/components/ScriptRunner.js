@@ -46,13 +46,16 @@ class ScriptRunner extends React.Component {
     render() {
         const {
             classes,
-            name,
-            params,
+            details,
             paramValues,
             onParamChange
         } = this.props;
 
-        const paramComponents = params.map((param) => (
+        if (!details) {
+            return <div/>
+        }
+
+        const paramComponents = details.params.map((param) => (
             <Grid item key={param.name}>
                 <ScriptParam
                     name={param.name}
@@ -65,7 +68,7 @@ class ScriptRunner extends React.Component {
         return (
             <div className={classes.content}>
                 <div className={classes.scriptTop}>
-                    <span className={classes.scriptTitle}>{name}</span>
+                    <span className={classes.scriptTitle}>{details.name}</span>
                     <Button className={classes.runButton} color="primary" variant="contained">
                         Run Script
                     </Button>

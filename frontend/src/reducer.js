@@ -11,7 +11,7 @@ const initialState = {
     filteredScripts: [],
     searchString: null,
     chosenScriptID: null,
-    chosenScriptDetails: {},
+    chosenScriptDetails: null,
     paramValues: {}
 };
 

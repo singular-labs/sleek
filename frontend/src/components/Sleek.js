@@ -102,8 +102,7 @@ class Sleek extends React.Component {
                 </Drawer>
                 Bla
                 <ScriptRunner
-                    name={chosenScriptDetails.name}
-                    params={chosenScriptDetails.params}
+                    details={chosenScriptDetails}
                     paramValues={paramValues}
                     onParamChange={onParamChange}
                 />
