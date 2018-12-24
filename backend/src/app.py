@@ -1,79 +1,22 @@
-from flask import Flask, jsonify, request
+import six
 
-app = Flask("Sleek")
+from collections import OrderedDict
 
-
-AVAILABLE_SCRIPTS = [
-    {
-        "id": 'simple_script',
-        "name": 'Simple Script',
-        "description": 'The most amazing simple script',
-        "output_type": 'excel',
-        "created_at": "2018-12-20",
-        "created_by": "Noa Hadar"
-    }, {
-        "id": 'simple_script_2',
-        "name": 'Simple Script 2.0',
-        "description": 'The most amazing simple script EVER!! It does everything you ever wanted!',
-        "output_type": 'excel',
-        "created_at": "2018-12-21",
-        "created_by": "Itamar Hartstein"
-    }
-]
-
-SCRIPT_DETAILS = {
-    "simple_script": {
-        "id": "simple_script",
-        "name": "Simple Script",
-        "description":  'The most amazing simple script',
-        "params": [
-            {
-                "name": "param1",
-                "type": "string"
-            }, {
-                "name": "param2",
-                "type": "string"
-            }, {
-                "name": "param3",
-                "type": "string"
-            }, {
-                "name": "param4",
-                "type": "string"
-            }
-        ]
-    },
-    "simple_script_2": {
-        "id": "simple_script_2",
-        "name": "Simple Script 2",
-        "description":  'The most amazing simple script',
-        "params": [
-            {
-                "name": "param1",
-                "type": "string"
-            }, {
-                "name": "param2",
-                "type": "string"
-            }
-        ]
-    }
-}
+from script import SleekScript
 
 
-@app.route("/")
-def index():
-    return app.send_static_file("index.html")
+class Sleek(object):
+    def __init__(self, name):
+        self.name = name
+        self.scripts = OrderedDict()
 
+    def register(self, click_command, script_name=None):
+        script = SleekScript(click_command, script_name)
+        self.scripts[script.id] = script
 
-@app.route("/api/get_available_scripts")
-def get_available_scripts():
-    return jsonify(AVAILABLE_SCRIPTS)
+    def get_available_scripts(self):
+        return [script.info for script in six.itervalues(self.scripts)]
 
-
-@app.route("/api/get_script_details")
-def get_script_details():
-    script_id = request.args.get("script_id")
-    if script_id is None:
-        raise Exception("OMG")
-
-    return jsonify(SCRIPT_DETAILS[script_id])
-
+    def get_script_details(self, script_id):
+        # TODO: add nice exception
+        return self.scripts[script_id].details
