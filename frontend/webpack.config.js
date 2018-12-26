@@ -47,5 +47,10 @@ module.exports = {
     ],
     optimization: {
         minimizer: [new UglifyJsPlugin()]
+    },
+    devServer: {
+        proxy: {
+            '/api': 'http://localhost:5000'
+        }
     }
 };
