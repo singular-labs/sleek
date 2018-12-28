@@ -10,12 +10,13 @@
     "classnames": "^2.2.6",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-hot-loader": "^4.6.3",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode=development",
     "build-watch": "webpack --mode=development --watch",
     "build-prod": "webpack --mode=production",

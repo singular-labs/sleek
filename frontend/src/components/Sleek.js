@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { hot } from 'react-hot-loader/root'
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import Divider from '@material-ui/core/Divider';
 import TextField from "@material-ui/core/es/TextField/TextField";
@@ -111,4 +112,4 @@ class Sleek extends React.Component {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(Sleek);
+export default hot(withStyles(styles, { withTheme: true })(Sleek));
