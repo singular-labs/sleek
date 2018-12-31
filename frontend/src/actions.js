@@ -3,6 +3,8 @@ export const UPDATE_SCRIPTS_SEARCH = "UPDATE_SCRIPTS_SEARCH";
 export const UPDATE_CHOSEN_SCRIPT = "UPDATE_CHOSEN_SCRIPT";
 export const UPDATE_CHOSEN_SCRIPT_DETAILS = "UPDATE_CHOSEN_SCRIPT_DETAILS";
 export const CHANGE_PARAM_VALUE = "CHANGE_PARAM_VALUE";
+export const RUN_SCRIPT = "RUN_SCRIPT";
+export const SCRIPT_FINISHED = "SCRIPT_FINISHED";
 
 
 export function updateAvailableScripts(availableScripts) {
@@ -38,5 +40,21 @@ export function changeParamValue(name, value) {
         "type": CHANGE_PARAM_VALUE,
         "name": name,
         "value": value
+    }
+}
+
+export function runScript(scriptID, paramValues) {
+    return {
+        "type": RUN_SCRIPT,
+        "scriptID": scriptID,
+        "paramValues": paramValues
+    }
+}
+
+export function scriptFinished(scriptID, result) {
+    return {
+        "type": SCRIPT_FINISHED,
+        "scriptID": scriptID,
+        "result": result
     }
 }

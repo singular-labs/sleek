@@ -3,7 +3,7 @@ import {
     UPDATE_SCRIPTS_SEARCH,
     CHANGE_PARAM_VALUE,
     UPDATE_AVAILABLE_SCRIPTS,
-    UPDATE_CHOSEN_SCRIPT_DETAILS
+    UPDATE_CHOSEN_SCRIPT_DETAILS, SCRIPT_FINISHED
 } from "./actions";
 
 const initialState = {
@@ -12,7 +12,8 @@ const initialState = {
     searchString: null,
     chosenScriptID: null,
     chosenScriptDetails: null,
-    paramValues: {}
+    paramValues: {},
+    scriptResult: null
 };
 
 
@@ -70,6 +71,12 @@ function reducer(state=initialState, action) {
                     ...state.paramValues,
                     [action.name]: action.value
                 }
+            };
+
+        case SCRIPT_FINISHED:
+            return {
+                ...state,
+                scriptResult: action.result
             };
 
         default:

@@ -12,6 +12,13 @@ class API {
             }
         })
     }
+
+    runScript(scriptID, paramValues) {
+        return axios.post('/api/run_script', {
+            "script_id": scriptID,
+            "param_values": paramValues
+        })
+    }
 }
 
 export default API;

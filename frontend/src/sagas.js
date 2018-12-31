@@ -1,5 +1,6 @@
 import { put, call, all, takeEvery } from 'redux-saga/effects'
 import {
+    RUN_SCRIPT, scriptFinished,
     UPDATE_CHOSEN_SCRIPT,
     updateAvailableScripts,
     updateChosenScriptDetails
@@ -7,7 +8,6 @@ import {
 import API from "./api"
 
 function* getAllScripts() {
-    console.log("bla1");
     const api = new API();
     const response = yield call(api.getAvailableScripts);
     yield put(updateAvailableScripts(response.data));
@@ -15,7 +15,6 @@ function* getAllScripts() {
 
 function* getScriptDetails(action) {
     try {
-        console.log("bla3");
         const api = new API();
         const response = yield call(api.getScriptDetails, action.scriptID);
         yield put(updateChosenScriptDetails(response.data));
@@ -24,15 +23,35 @@ function* getScriptDetails(action) {
     }
 }
 
+function* runScript(action) {
+    try {
+        const {
+            scriptID,
+            paramValues
+        } = action;
+
+        const api = new API();
+        const response = yield call(api.runScript, scriptID, paramValues);
+        yield put(scriptFinished(scriptID, response.data))
+
+        // TODO: start polling for logs / results
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 function* watchGetScriptDetails() {
-    console.log("bla2");
     yield takeEvery(UPDATE_CHOSEN_SCRIPT, getScriptDetails)
 }
 
+function* watchRunScript() {
+    yield takeEvery(RUN_SCRIPT, runScript)
+}
+
 export function* rootSaga() {
-    console.log("mega bla3");
     yield all([
         getAllScripts(),
-        watchGetScriptDetails()
+        watchGetScriptDetails(),
+        watchRunScript()
     ])
 }

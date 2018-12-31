@@ -61,7 +61,9 @@ class Sleek extends React.Component {
             updateChosenScript,
             chosenScriptDetails,
             paramValues,
-            onParamChange
+            scriptResult,
+            onParamChange,
+            runScript
         } = this.props;
 
         return (
@@ -105,7 +107,9 @@ class Sleek extends React.Component {
                 <ScriptRunner
                     details={chosenScriptDetails}
                     paramValues={paramValues}
+                    scriptResult={scriptResult}
                     onParamChange={onParamChange}
+                    runScript={runScript}
                 />
             </div>
         );

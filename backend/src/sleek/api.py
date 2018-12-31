@@ -26,5 +26,17 @@ def get_script_details():
     if script_id is None:
         raise Exception("OMG")
 
-    return jsonify(sleek_app.get_script_details(script_id))
+    script = sleek_app.get_script(script_id)
+    return jsonify(script.details)
 
+
+@app.route("/api/run_script", methods=["POST"])
+def run_script():
+    request_data = request.json
+    script_id = request_data.get("script_id")
+    param_values = request_data.get("param_values")
+    if script_id is None or param_values is None:
+        raise Exception("OMG: script_id=%s, param_values=%s" % (script_id, param_values))
+
+    script = sleek_app.get_script(script_id)
+    return jsonify(script.run(param_values))

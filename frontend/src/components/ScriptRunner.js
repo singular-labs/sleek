@@ -48,7 +48,9 @@ class ScriptRunner extends React.Component {
             classes,
             details,
             paramValues,
-            onParamChange
+            scriptResult,
+            onParamChange,
+            runScript
         } = this.props;
 
         if (!details) {
@@ -65,11 +67,16 @@ class ScriptRunner extends React.Component {
             </Grid>
         ));
 
+        let resultStr = "not ready";
+        if (scriptResult) {
+            resultStr = scriptResult["success"] ? "Success" : "Failure";
+        }
+
         return (
             <div className={classes.content}>
                 <div className={classes.scriptTop}>
                     <span className={classes.scriptTitle}>{details.name}</span>
-                    <Button className={classes.runButton} color="primary" variant="contained">
+                    <Button className={classes.runButton} onClick={() => runScript(details.id, paramValues)} color="primary" variant="contained">
                         Run Script
                     </Button>
                 </div>
@@ -88,7 +95,7 @@ class ScriptRunner extends React.Component {
                         <Tab label="Log" />
                     </Tabs>
                     <Paper elevation={1} className={classes.logArea}>
-                        This is a log
+                        This is a log - {resultStr}
                     </Paper>
                 </div>
             </div>

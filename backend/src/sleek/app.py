@@ -17,6 +17,8 @@ class Sleek(object):
     def get_available_scripts(self):
         return [script.info for script in six.itervalues(self.scripts)]
 
-    def get_script_details(self, script_id):
-        # TODO: add nice exception
-        return self.scripts[script_id].details
+    def get_script(self, script_id):
+        if script_id not in self.scripts:
+            raise Exception("OMG")
+
+        return self.scripts[script_id]
