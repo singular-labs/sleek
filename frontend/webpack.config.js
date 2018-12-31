@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
-const STATIC_DIR = path.resolve(BUILD_DIR, '../../backend/src/static');
+const STATIC_DIR = path.resolve(BUILD_DIR, '../../backend/src/sleek/static');
 const RESOURCES_DIR = path.resolve(__dirname, 'resources');
 
 module.exports = (env, argv) => {
