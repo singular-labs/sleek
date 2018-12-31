@@ -2,7 +2,7 @@ import six
 
 from collections import OrderedDict
 
-from script import SleekScript
+from sleek.script import SleekScript
 
 
 class Sleek(object):

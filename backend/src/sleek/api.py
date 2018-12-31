@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 
-from app import Sleek
-from scripts.sample_script import sample_script, sample_script_2
+from sleek.app import Sleek
+from sleek.scripts.sample_script import sample_script, sample_script_2
 
 app = Flask("Sleek")
 
