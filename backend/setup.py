@@ -15,7 +15,10 @@ setup(
     version="0.1",
     author="Singular",
     description="",
-    packages=find_packages(),
+    packages=find_packages(where="src"),
+    package_dir={
+        '': 'src'
+    },
     install_requires=get_requirements(REQUIREMENTS_FILE),
     url="https://github.com/singular-labs/sleek",
     include_package_data=True
