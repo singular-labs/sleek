@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
@@ -49,7 +49,14 @@ module.exports = (env, argv) => {
             })
         ],
         optimization: {
-            minimizer: [new UglifyJsPlugin()]
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    terserOptions: {
+                        ecma: 6,
+                    },
+                })
+            ]
         },
         devServer: {
             proxy: {
