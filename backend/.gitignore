@@ -1,4 +1,4 @@
-/src/static
+/src/sleek/static
 
 *.pyc
 *.egg-info
