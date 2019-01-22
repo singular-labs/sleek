@@ -21,5 +21,10 @@ setup(
     },
     install_requires=get_requirements(REQUIREMENTS_FILE),
     url="https://github.com/singular-labs/sleek",
-    include_package_data=True
+    include_package_data=True,
+    entry_points={
+        'console_scripts': [
+            'sleek = sleek.__main__:cli',
+        ]
+    },
 )
