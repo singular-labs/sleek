@@ -49,5 +49,6 @@ class Sleek(object):
 
         is_done = runner.is_done()
         logs = runner.read_output()
+        result = runner.get_result()
 
-        return ScriptStatus(is_done, logs)
+        return ScriptStatus(is_done, logs, result)

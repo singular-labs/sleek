@@ -61,6 +61,7 @@ class Sleek extends React.Component {
             updateChosenScript,
             chosenScriptDetails,
             paramValues,
+            scriptStatus,
             scriptResult,
             onParamChange,
             runScript
@@ -107,6 +108,7 @@ class Sleek extends React.Component {
                 <ScriptRunner
                     details={chosenScriptDetails}
                     paramValues={paramValues}
+                    scriptStatus={scriptStatus}
                     scriptResult={scriptResult}
                     onParamChange={onParamChange}
                     runScript={runScript}

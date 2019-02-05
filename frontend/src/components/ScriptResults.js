@@ -23,12 +23,12 @@ class ScriptResults extends React.Component {
     render() {
         const {
             classes,
-            scriptResult
+            scriptStatus
         } = this.props;
 
-        let resultStr = "not ready";
-        if (scriptResult) {
-            resultStr = scriptResult["success"] ? "Success" : "Failure";
+        let logs = "";
+        if (scriptStatus.scriptRunID !== null) {
+            logs = scriptStatus.logs;
         }
 
         return (
@@ -41,7 +41,7 @@ class ScriptResults extends React.Component {
                     <Tab label="Log" />
                 </Tabs>
                 <Paper elevation={1} className={classes.logArea}>
-                    This is a log - {resultStr}
+                    <pre>{logs}</pre>
                 </Paper>
             </div>
         );

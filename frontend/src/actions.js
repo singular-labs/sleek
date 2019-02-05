@@ -4,6 +4,7 @@ export const UPDATE_CHOSEN_SCRIPT = "UPDATE_CHOSEN_SCRIPT";
 export const UPDATE_CHOSEN_SCRIPT_DETAILS = "UPDATE_CHOSEN_SCRIPT_DETAILS";
 export const CHANGE_PARAM_VALUE = "CHANGE_PARAM_VALUE";
 export const RUN_SCRIPT = "RUN_SCRIPT";
+export const UPDATE_SCRIPT_STATUS = "UPDATE_SCRIPT_STATUS";
 export const SCRIPT_FINISHED = "SCRIPT_FINISHED";
 
 
@@ -48,6 +49,15 @@ export function runScript(scriptID, paramValues) {
         "type": RUN_SCRIPT,
         "scriptID": scriptID,
         "paramValues": paramValues
+    }
+}
+
+export function updateScriptStatus(scriptRunID, isDone, logs) {
+    return {
+        "type": UPDATE_SCRIPT_STATUS,
+        "scriptRunID": scriptRunID,
+        "isDone": isDone,
+        "logs": logs
     }
 }
 

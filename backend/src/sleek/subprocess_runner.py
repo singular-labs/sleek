@@ -18,6 +18,9 @@ class SubprocessRunner(object):
     def start(self):
         self.process.start()
 
+    def get_result(self):
+        return self.process.exitcode
+
     def is_done(self):
         return self.process.exitcode is not None
 

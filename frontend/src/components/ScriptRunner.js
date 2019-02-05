@@ -40,6 +40,7 @@ class ScriptRunner extends React.Component {
             classes,
             details,
             paramValues,
+            scriptStatus,
             scriptResult,
             onParamChange,
             runScript
@@ -74,6 +75,7 @@ class ScriptRunner extends React.Component {
                 </div>
                 <Divider/>
                 <ScriptResults
+                    scriptStatus={scriptStatus}
                     scriptResult={scriptResult}
                 />
             </div>

@@ -10,7 +10,8 @@ function mapStateToProps(state) {
         searchString: state.searchString,
         chosenScriptDetails: state.chosenScriptDetails,
         paramValues: state.paramValues,
-        scriptResult: state.scriptResult
+        scriptResult: state.scriptResult,
+        scriptStatus: state.scriptStatus
     }
 }
 

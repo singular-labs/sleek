@@ -19,6 +19,14 @@ class API {
             "param_values": paramValues
         })
     }
+
+    getScriptStatus(scriptRunID) {
+        return axios.get('/api/get_script_status', {
+            params: {
+                "script_run_id": scriptRunID
+            }
+        })
+    }
 }
 
 export default API;
