@@ -1,27 +1,28 @@
-from flask import Flask, jsonify, request
+from flask import jsonify, request, Blueprint, current_app
 
-from sleek.app import Sleek
-from sleek.scripts.sample_script import sample_script, sample_script_2
-
-app = Flask("Sleek")
-
-sleek_app = Sleek("Singular")
-sleek_app.register(sample_script, script_name="Sample Script :-)")
-sleek_app.register(sample_script_2, script_name="Sample Script 2 :-)")
+sleek_blueprint = Blueprint("Sleek", __name__)
 
 
-@app.route("/")
+@sleek_blueprint.route("/")
 def index():
-    return app.send_static_file("index.html")
+    return sleek_blueprint.send_static_file("index.html")
 
 
-@app.route("/api/get_available_scripts")
+@sleek_blueprint.route("/api/get_available_scripts")
 def get_available_scripts():
+    sleek_app = getattr(current_app, "sleek_app")
+    if sleek_app is None:
+        raise Exception("Sleek app not defined!")
+
     return jsonify(sleek_app.get_available_scripts())
 
 
-@app.route("/api/get_script_details")
+@sleek_blueprint.route("/api/get_script_details")
 def get_script_details():
+    sleek_app = getattr(current_app, "sleek_app")
+    if sleek_app is None:
+        raise Exception("Sleek app not defined!")
+
     script_id = request.args.get("script_id")
     if script_id is None:
         raise Exception("OMG")
@@ -30,8 +31,12 @@ def get_script_details():
     return jsonify(script.details)
 
 
-@app.route("/api/run_script", methods=["POST"])
+@sleek_blueprint.route("/api/run_script", methods=["POST"])
 def run_script():
+    sleek_app = getattr(current_app, "sleek_app")
+    if sleek_app is None:
+        raise Exception("Sleek app not defined!")
+
     request_data = request.json
     script_id = request_data.get("script_id")
     param_values = request_data.get("param_values")
