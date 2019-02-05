@@ -3,6 +3,9 @@ import sys
 from multiprocessing import Pipe, Process
 
 
+SLEEP_INTERVAL = 0.1
+
+
 class SubprocessRunner(object):
     def __init__(self, func, *args, **kwargs):
         self.func = func
@@ -15,9 +18,12 @@ class SubprocessRunner(object):
     def start(self):
         self.process.start()
 
+    def is_done(self):
+        return self.process.exitcode is not None
+
     def read_output(self):
         output = ""
-        while self.parent_conn.poll(timeout=0):
+        while self.parent_conn.poll(timeout=SLEEP_INTERVAL):
             output += self.parent_conn.recv()
         return output
 

@@ -1,3 +1,4 @@
+import attr
 from flask import jsonify, request, Blueprint, current_app
 
 sleek_blueprint = Blueprint("Sleek", __name__)
@@ -43,5 +44,19 @@ def run_script():
     if script_id is None or param_values is None:
         raise Exception("OMG: script_id=%s, param_values=%s" % (script_id, param_values))
 
-    script = sleek_app.get_script(script_id)
-    return jsonify(script.run(param_values))
+    script_run_id = sleek_app.run_script(script_id, param_values)
+    return jsonify({"script_run_id": script_run_id})
+
+
+@sleek_blueprint.route("/api/get_script_status")
+def get_script_status():
+    sleek_app = getattr(current_app, "sleek_app")
+    if sleek_app is None:
+        raise Exception("Sleek app not defined!")
+
+    script_run_id = request.args.get("script_run_id")
+    if script_run_id is None:
+        raise Exception("OMG")
+
+    script_status = sleek_app.get_script_status(script_run_id)
+    return jsonify(attr.asdict(script_status))

@@ -1,14 +1,20 @@
+import uuid
+
 import six
 
 from collections import OrderedDict
 
 from sleek.script import SleekScript
+from sleek.script_status import ScriptStatus
+from sleek.subprocess_runner import SubprocessRunner
 
 
 class Sleek(object):
     def __init__(self, name):
         self.name = name
         self.scripts = OrderedDict()
+
+        self.running_scripts = {}
 
     def register(self, click_command, script_name=None):
         script = SleekScript(click_command, script_name)
@@ -22,3 +28,26 @@ class Sleek(object):
             raise Exception("OMG")
 
         return self.scripts[script_id]
+
+    def run_script(self, script_id, param_values):
+        script = self.get_script(script_id)
+        runner = SubprocessRunner(script.run, param_values=param_values)
+
+        script_run_id = str(uuid.uuid4())
+        runner.start()
+
+        self.running_scripts[script_run_id] = runner
+
+        return script_run_id
+
+    def get_script_status(self, script_run_id):
+        print(self.running_scripts)
+        if script_run_id not in self.running_scripts:
+            raise Exception("Invalid script run id: %s" % script_run_id)
+
+        runner = self.running_scripts[script_run_id]
+
+        is_done = runner.is_done()
+        logs = runner.read_output()
+
+        return ScriptStatus(is_done, logs)
