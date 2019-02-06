@@ -11,15 +11,13 @@ import API from "./api"
 const SCRIPT_POLLING_INTERVAL = 100;
 
 function* getAllScripts() {
-    const api = new API();
-    const response = yield call(api.getAvailableScripts);
+    const response = yield call(API.getAvailableScripts);
     yield put(updateAvailableScripts(response.data));
 }
 
 function* getScriptDetails(action) {
     try {
-        const api = new API();
-        const response = yield call(api.getScriptDetails, action.scriptID);
+        const response = yield call(API.getScriptDetails, action.scriptID);
         yield put(updateChosenScriptDetails(response.data));
     } catch(error) {
         console.log(error);
@@ -33,8 +31,7 @@ function* runScript(action) {
             paramValues
         } = action;
 
-        const api = new API();
-        const response = yield call(api.runScript, scriptID, paramValues);
+        const response = yield call(API.runScript, scriptID, paramValues);
         const scriptRunId = response.data["script_run_id"];
         yield put(updateScriptStatus(scriptRunId, false, ""));
 
@@ -44,7 +41,7 @@ function* runScript(action) {
             console.log("Iteration!");
             yield delay(SCRIPT_POLLING_INTERVAL);
 
-            const response = yield call(api.getScriptStatus, scriptRunId);
+            const response = yield call(API.getScriptStatus, scriptRunId);
             yield put(updateScriptStatus(scriptRunId,
                 response.data["is_done"], response.data["logs"]));
 
