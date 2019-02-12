@@ -1,9 +1,11 @@
 import sys
+import datetime
 
 from multiprocessing import Pipe, Process
 
 
 SLEEP_INTERVAL = 0.1
+TIMESTAMP_FORMAT = "%A, %d %b %Y %I:%M:%S %p"
 
 
 class SubprocessRunner(object):
@@ -27,7 +29,13 @@ class SubprocessRunner(object):
     def read_output(self):
         output = ""
         while self.parent_conn.poll(timeout=SLEEP_INTERVAL):
-            output += self.parent_conn.recv()
+            timestamp, string = self.parent_conn.recv()
+            if string == "\n":
+                continue
+
+            for line in string.splitlines():
+                # TODO: Custom log formatting?
+                output += "[%s] %s\n" % (timestamp.strftime(TIMESTAMP_FORMAT), line)
         return output
 
     def subprocess_func(self, child_conn, args, kwargs):
@@ -40,4 +48,5 @@ class PipeOutput(object):
         self.pipe = pipe
 
     def write(self, string):
-        self.pipe.send(string)
+        timestamp = datetime.datetime.now()
+        self.pipe.send((timestamp, string))
