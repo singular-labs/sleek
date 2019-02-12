@@ -5,7 +5,7 @@ import {
     UPDATE_AVAILABLE_SCRIPTS,
     UPDATE_CHOSEN_SCRIPT_DETAILS,
     UPDATE_SCRIPT_STATUS,
-    SCRIPT_FINISHED
+    SCRIPT_FINISHED, CLEAN_RUNNING_SCRIPT_STATE
 } from "./actions";
 
 const initialState = {
@@ -94,6 +94,17 @@ function reducer(state=initialState, action) {
             return {
                 ...state,
                 scriptResult: action.result
+            };
+
+        case CLEAN_RUNNING_SCRIPT_STATE:
+            return {
+                ...state,
+                scriptStatus: {
+                    scriptRunID: null,
+                    isDone: false,
+                    logs: ""
+                },
+                scriptResult: null
             };
 
         default:

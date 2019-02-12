@@ -1,6 +1,7 @@
 import { delay } from 'redux-saga'
 import { put, call, all, takeEvery } from 'redux-saga/effects'
 import {
+    cleanRunningScriptState,
     RUN_SCRIPT, scriptFinished,
     UPDATE_CHOSEN_SCRIPT,
     updateAvailableScripts,
@@ -19,6 +20,7 @@ function* getScriptDetails(action) {
     try {
         const response = yield call(API.getScriptDetails, action.scriptID);
         yield put(updateChosenScriptDetails(response.data));
+        yield put(cleanRunningScriptState());
     } catch(error) {
         console.log(error);
     }
@@ -30,6 +32,8 @@ function* runScript(action) {
             scriptID,
             paramValues
         } = action;
+
+        yield put(cleanRunningScriptState());
 
         const response = yield call(API.runScript, scriptID, paramValues);
         const scriptRunId = response.data["script_run_id"];

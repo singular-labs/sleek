@@ -6,6 +6,7 @@ export const CHANGE_PARAM_VALUE = "CHANGE_PARAM_VALUE";
 export const RUN_SCRIPT = "RUN_SCRIPT";
 export const UPDATE_SCRIPT_STATUS = "UPDATE_SCRIPT_STATUS";
 export const SCRIPT_FINISHED = "SCRIPT_FINISHED";
+export const CLEAN_RUNNING_SCRIPT_STATE = "CLEAN_RUNNING_SCRIPT_STATE";
 
 
 export function updateAvailableScripts(availableScripts) {
@@ -66,5 +67,11 @@ export function scriptFinished(scriptID, result) {
         "type": SCRIPT_FINISHED,
         "scriptID": scriptID,
         "result": result
+    }
+}
+
+export function cleanRunningScriptState() {
+    return {
+        "type": CLEAN_RUNNING_SCRIPT_STATE
     }
 }
