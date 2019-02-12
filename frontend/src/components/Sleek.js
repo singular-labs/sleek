@@ -58,6 +58,7 @@ class Sleek extends React.Component {
             classes,
             filteredScripts,
             updateScriptsSearch,
+            chosenScriptID,
             updateChosenScript,
             chosenScriptDetails,
             paramValues,
@@ -99,9 +100,10 @@ class Sleek extends React.Component {
 
                     <Divider />
 
-                    < ScriptsList
+                    <ScriptsList
                         filteredScripts={filteredScripts}
                         updateChosenScript={updateChosenScript}
+                        chosenScriptID={chosenScriptID}
                     />
                 </Drawer>
                 Bla

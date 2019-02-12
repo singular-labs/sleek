@@ -17,7 +17,7 @@ const styles = theme => ({
 
 class ScriptsList extends React.Component {
     render () {
-        const { classes, filteredScripts, updateChosenScript } = this.props;
+        const { classes, filteredScripts, updateChosenScript, chosenScriptID } = this.props;
 
         const scripts = filteredScripts.map((script) => {
             return (
@@ -26,6 +26,7 @@ class ScriptsList extends React.Component {
                     scriptName={script.name}
                     scriptDescription={script.description}
                     updateChosenScript={updateChosenScript}
+                    chosenScriptID={chosenScriptID}
                 />
             )
         });

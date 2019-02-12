@@ -23,14 +23,14 @@ const styles = theme => ({
 
 class ScriptInfo extends React.Component {
     render() {
-        const { classes, scriptID, scriptName, scriptDescription, updateChosenScript } = this.props;
+        const { classes, scriptID, scriptName, scriptDescription } = this.props;
 
         // TODO: add an option to display \n in description
         return (
             <ListItem button
                 key={scriptID}
                 className={classes.scriptInfo}
-                onClick={() => updateChosenScript(scriptID)}
+                onClick={() => this.onScriptClick(scriptID)}
             >
                 <ListItemText
                     primary={scriptName}
@@ -44,6 +44,14 @@ class ScriptInfo extends React.Component {
             </ListItem>
         )
     }
+
+    onScriptClick(scriptID) {
+        const { chosenScriptID, updateChosenScript} = this.props;
+        if (chosenScriptID !== scriptID) {
+            updateChosenScript(scriptID);
+        }
+    }
+
 }
 
 export default withStyles(styles, { withTheme: true })(ScriptInfo);

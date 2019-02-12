@@ -8,6 +8,7 @@ function mapStateToProps(state) {
     return {
         filteredScripts: state.filteredScripts,
         searchString: state.searchString,
+        chosenScriptID: state.chosenScriptID,
         chosenScriptDetails: state.chosenScriptDetails,
         paramValues: state.paramValues,
         scriptResult: state.scriptResult,
