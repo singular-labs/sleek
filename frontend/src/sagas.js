@@ -42,7 +42,6 @@ function* runScript(action) {
         let isDone = false;
         let scriptResult = null;
         while (!isDone) {
-            console.log("Iteration!");
             yield delay(SCRIPT_POLLING_INTERVAL);
 
             const response = yield call(API.getScriptStatus, scriptRunId);

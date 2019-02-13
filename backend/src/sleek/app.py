@@ -41,7 +41,6 @@ class Sleek(object):
         return script_run_id
 
     def get_script_status(self, script_run_id):
-        print(self.running_scripts)
         if script_run_id not in self.running_scripts:
             raise Exception("Invalid script run id: %s" % script_run_id)
 
