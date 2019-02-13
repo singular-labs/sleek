@@ -45,12 +45,7 @@ class SleekScript(object):
         }
 
     def run(self, param_values):
-        try:
-            self.click_command.callback(**param_values)
-            return {"success": True}
-        except Exception as e:
-            return {"success": False,
-                    "exception": str(e)}
+        return self.click_command.callback(**param_values)
 
     @staticmethod
     def _get_param_type(click_type):

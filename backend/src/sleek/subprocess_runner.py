@@ -1,5 +1,6 @@
 import sys
 import datetime
+import traceback
 
 from multiprocessing import Pipe, Process
 
@@ -30,6 +31,7 @@ class SubprocessRunner(object):
         output = ""
         while self.parent_conn.poll(timeout=SLEEP_INTERVAL):
             timestamp, string = self.parent_conn.recv()
+            print(string)
             if string == "\n":
                 continue
 
@@ -40,7 +42,13 @@ class SubprocessRunner(object):
 
     def subprocess_func(self, child_conn, args, kwargs):
         sys.stdout = sys.stderr = PipeOutput(child_conn)
-        return self.func(*args, **kwargs)
+
+        try:
+            return self.func(*args, **kwargs)
+        except:
+            print("An exception occured while running the script!")
+            print("Traceback:")
+            traceback.print_exc()
 
 
 class PipeOutput(object):
