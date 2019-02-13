@@ -62,7 +62,8 @@ function reducer(state=initialState, action) {
         case UPDATE_CHOSEN_SCRIPT:
             return {
                 ...state,
-                chosenScriptID: action.scriptID
+                chosenScriptID: action.scriptID,
+                paramValues: {}
             };
 
         case UPDATE_CHOSEN_SCRIPT_DETAILS:
