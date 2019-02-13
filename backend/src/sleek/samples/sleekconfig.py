@@ -1,8 +1,10 @@
 from sleek.app import Sleek
 
-from sample_script import sample_script
-from sample_script_2 import sample_script_2
+from arithmetic import arithmetic
+from sierpinski import sierpinski
+from timer import timer
 
 app = Sleek("Singular")
-app.register(sample_script, script_name="Sample Script :-)")
-app.register(sample_script_2, script_name="Sample Script 2 :-)")
+app.register(arithmetic, script_name="Arithmetic")
+app.register(sierpinski, script_name="Sierpinski Triangle")
+app.register(timer, script_name="Countdown Timer")
