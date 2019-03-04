@@ -23,8 +23,18 @@ module.exports = (env, argv) => {
                     loader: "babel-loader",
                 },
                 {
-                    test: /\.css$/,
-                    use: [ 'style-loader', 'css-loader' ]
+                    test: /\.[p]css$/,
+                    use: [ 'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                sourceMap: true,
+                                modules: true,
+                                localIdentName: '[name]-[local]-[hash:base64:6]',
+                            },
+                        },
+                        { loader: 'postcss-loader' } ]
                 }
             ]
         },

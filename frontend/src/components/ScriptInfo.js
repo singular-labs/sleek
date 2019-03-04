@@ -7,6 +7,8 @@ import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 import {withStyles} from "@material-ui/core";
 import ListItemAvatar from "@material-ui/core/es/ListItemAvatar/ListItemAvatar";
 
+import css from './ScriptInfo.pcss';
+
 
 const styles = theme => ({
     scriptInfo: {
@@ -17,6 +19,9 @@ const styles = theme => ({
         marginLeft: 10,
         marginTop: 10,
         marginBottom: 10,
+    },
+    pasten2: {
+        color: "red"
     }
 });
 
@@ -35,6 +40,7 @@ class ScriptInfo extends React.Component {
                 <ListItemText
                     primary={scriptName}
                     secondary={scriptDescription}
+                    classes={{primary: css.pasten }}
                 />
                 <ListItemAvatar>
                     <Avatar>

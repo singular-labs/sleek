@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "@babel/plugin-proposal-object-rest-spread",
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    "react-css-modules"
   ]
 }
