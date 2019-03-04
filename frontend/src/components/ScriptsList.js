@@ -3,7 +3,8 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 
-import ScriptInfo from './ScriptInfo'
+import ScriptInfo from './ScriptInfo';
+import css from './ScriptList.pcss';
 
 
 const styles = theme => ({
@@ -32,7 +33,7 @@ class ScriptsList extends React.Component {
         });
 
         return (
-            <List className={classes.scriptsList}>
+            <List className={css.List}>
                 {scripts}
             </List>
         );

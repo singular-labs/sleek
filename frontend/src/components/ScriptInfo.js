@@ -32,17 +32,17 @@ class ScriptInfo extends React.Component {
         return (
             <ListItem button
                 key={scriptID}
-                className={css.container}
+                className={css.scriptInfo}
                 onClick={() => this.onScriptClick(scriptID)}
             >
                 <ListItemText
-                    disableTypography
-                    // primaryTypographyProps={{root: css.title}}
-                    primary={<Typography className={classes.scriptInfo}>{scriptName}</Typography>}
-                    // secondary={<Typography classes={{root: css.title}}>{scriptDescription}</Typography>}
-                    // classes={{root: css.title, inset: true}}
-                >
-                </ListItemText>
+                    primary={scriptName}
+                    secondary={scriptDescription}
+                    classes={{
+                        primary: css.title,
+                        secondary: css.secondaryTitle
+                    }}
+                />
                 <ListItemAvatar>
                     <Avatar>
                         <ImageIcon />

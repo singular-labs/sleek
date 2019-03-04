@@ -28,7 +28,10 @@ module.exports = (env, argv) => {
                         'style-loader'  ,
                         {
                             loader: 'css-loader',
-                            options: {importLoaders: 1},
+                            options: {
+                                importLoaders: 1,
+                                modules: true,
+                            },
                         },
                         {
                             loader: 'postcss-loader',
