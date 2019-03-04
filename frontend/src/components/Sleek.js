@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
 import ScriptsList from "./ScriptsList";
 import ScriptRunner from "./ScriptRunner";
-
+import css from '../index.pcss';
 
 const drawerWidth = 575;
 
@@ -19,10 +19,6 @@ const styles = theme => ({
     },
     hide: {
         display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
     },
     drawerPaper: {
         width: drawerWidth,
@@ -71,7 +67,7 @@ class Sleek extends React.Component {
         return (
             <div>
                 <Drawer
-                    className={classes.drawer}
+                    className={css.drawer}
                     variant="persistent"
                     anchor="left"
                     open={true}

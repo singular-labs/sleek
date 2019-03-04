@@ -23,8 +23,22 @@ module.exports = (env, argv) => {
                     loader: "babel-loader",
                 },
                 {
-                    test: /\.css$/,
-                    use: [ 'style-loader', 'css-loader' ]
+                    test: /\.[p]css$/,
+                    use: [
+                        'style-loader'  ,
+                        {
+                            loader: 'css-loader',
+                            options: {importLoaders: 1},
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    path: './postcss.config.js'
+                                }
+                            },
+                        },
+                    ]
                 }
             ]
         },

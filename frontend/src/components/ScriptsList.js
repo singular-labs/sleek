@@ -40,4 +40,4 @@ class ScriptsList extends React.Component {
 }
 
 
-export default withStyles(styles)(ScriptsList);
+export default  withStyles(styles)(ScriptsList);
