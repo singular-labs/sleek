@@ -5,53 +5,15 @@ import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import Divider from '@material-ui/core/Divider';
 import TextField from "@material-ui/core/es/TextField/TextField";
 import SearchIcon from "@material-ui/icons/Search";
-import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
 import ScriptsList from "./ScriptsList";
 import ScriptRunner from "./ScriptRunner";
-import css from '../index.pcss';
-
-const drawerWidth = 575;
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-    },
-    hide: {
-        display: 'none',
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 8px 0 8px',
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-        height: 75
-    },
-    searchField: {
-        flexGrow: 1,
-        marginRight: 25,
-        marginLeft: 25,
-        marginBottom: 5
-    },
-    searchAdornment: {
-        variant: 'filled',
-        position: 'end'
-    },
-    searchIcon: {
-        marginBottom: 5
-    }
-});
-
+import css from './Sleek.pcss';
 
 
 class Sleek extends React.Component {
     render() {
         const {
-            classes,
             filteredScripts,
             updateScriptsSearch,
             chosenScriptID,
@@ -71,28 +33,24 @@ class Sleek extends React.Component {
                     variant="persistent"
                     anchor="left"
                     open={true}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
                 >
-                    <div className={classes.drawerHeader}>
-                        <TextField
-                            className={classes.searchField}
-                            onChange={(event) => updateScriptsSearch(event.target.value)}
-                            placeholder="Search.."
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment className={classes.searchAdornment}>
-                                        <SearchIcon
-                                            className={classes.searchIcon}
-                                            color="primary"
-                                            fontSize="large"
-                                        />
-                                    </InputAdornment>
-                                )
-                            }}
-                        />
-                    </div>
+                    <TextField
+                        // TODO: understand why we can't use className here and change this :(
+                        style={{minHeight: 20, margin: 17}}
+                        onChange={(event) => updateScriptsSearch(event.target.value)}
+                        placeholder="Search.."
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment variant="filled" position="end">
+                                    <SearchIcon
+                                        className={css.searchIcon}
+                                        color="primary"
+                                        fontSize="large"
+                                    />
+                                </InputAdornment>
+                            )
+                        }}
+                    />
 
                     <Divider />
 
@@ -116,4 +74,4 @@ class Sleek extends React.Component {
     }
 }
 
-export default hot(withStyles(styles, { withTheme: true })(Sleek));
+export default hot(Sleek);

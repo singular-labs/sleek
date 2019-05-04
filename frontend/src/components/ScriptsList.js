@@ -1,24 +1,23 @@
 import React from 'react';
 
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
 
 import ScriptInfo from './ScriptInfo';
-import css from './ScriptList.pcss';
+import css from './ScriptsList.pcss';
 
 
-const styles = theme => ({
-    scriptsList: {
-        width: '100%',
-        maxWidth: 575,
-        backgroundColor: theme.palette.background.paper,
-    },
-});
+//const styles = theme => ({
+//    scriptsList: {
+//    width: '100%',
+//    maxWidth: 575,
+//    backgroundColor: theme.palette.background.paper,
+//},
+//});
 
 
 class ScriptsList extends React.Component {
     render () {
-        const { classes, filteredScripts, updateChosenScript, chosenScriptID } = this.props;
+        const { filteredScripts, updateChosenScript, chosenScriptID } = this.props;
 
         const scripts = filteredScripts.map((script) => {
             return (
@@ -41,4 +40,4 @@ class ScriptsList extends React.Component {
 }
 
 
-export default  withStyles(styles)(ScriptsList);
+export default  ScriptsList;

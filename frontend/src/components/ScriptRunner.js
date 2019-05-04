@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/es/Button/Button";
 import Grid from '@material-ui/core/Grid';
-import {withStyles} from "@material-ui/core";
 import ScriptParam from "./ScriptParam";
 import Divider from "@material-ui/core/es/Divider/Divider";
 import ScriptResults from "./ScriptResults";
@@ -37,7 +36,6 @@ const styles = {
 class ScriptRunner extends React.Component {
     render() {
         const {
-            classes,
             details,
             paramValues,
             scriptStatus,
@@ -61,14 +59,14 @@ class ScriptRunner extends React.Component {
         ));
 
         return (
-            <div className={classes.content}>
-                <div className={classes.scriptTop}>
-                    <span className={classes.scriptTitle}>{details.name}</span>
-                    <Button className={classes.runButton} onClick={() => runScript(details.id, paramValues)} color="primary" variant="contained">
+            <div className={css.content}>
+                <div className={css.scriptTop}>
+                    <span className={css.scriptTitle}>{details.name}</span>
+                    <Button className={css.runButton} onClick={() => runScript(details.id, paramValues)} color="primary" variant="contained">
                         Run Script
                     </Button>
                 </div>
-                <div className={classes.scriptParams}>
+                <div className={css.scriptParams}>
                     <Grid container spacing={24}>
                         {paramComponents}
                     </Grid>
@@ -83,4 +81,4 @@ class ScriptRunner extends React.Component {
     }
 }
 
-export default withStyles(styles)(ScriptRunner);
+export default ScriptRunner;
