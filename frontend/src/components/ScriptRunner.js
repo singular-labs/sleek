@@ -5,32 +5,7 @@ import ScriptParam from "./ScriptParam";
 import Divider from "@material-ui/core/es/Divider/Divider";
 import ScriptResults from "./ScriptResults";
 
-
-const styles = {
-    content: {
-        flexGrow: 1,
-        marginLeft: 575
-    },
-    scriptTop: {
-        marginLeft: 20,
-        flexGrow: 1
-    },
-    scriptParams: {
-        marginLeft: 20,
-        flexGrow: 1,
-        marginTop: 40,
-        marginBottom: 20
-    },
-    scriptTitle: {
-        fontWeight: "bold",
-        fontSize: 28
-    },
-    runButton: {
-        float: "right",
-        marginRight: 20
-    },
-
-};
+import css from './ScriptRunner.pcss';
 
 
 class ScriptRunner extends React.Component {
@@ -67,7 +42,7 @@ class ScriptRunner extends React.Component {
                     </Button>
                 </div>
                 <div className={css.scriptParams}>
-                    <Grid container spacing={24}>
+                    <Grid container>
                         {paramComponents}
                     </Grid>
                 </div>
