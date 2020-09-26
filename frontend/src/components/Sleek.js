@@ -27,12 +27,15 @@ class Sleek extends React.Component {
         } = this.props;
 
         return (
-            <div>
+            <div className={css.mainDiv}>
                 <Drawer
                     className={css.drawer}
                     variant="persistent"
                     anchor="left"
                     open={true}
+                    classes={{
+                        paper: css.drawerPaper
+                    }}
                 >
                     <TextField
                         // TODO: understand why we can't use className here and change this :(
@@ -60,7 +63,6 @@ class Sleek extends React.Component {
                         chosenScriptID={chosenScriptID}
                     />
                 </Drawer>
-                Bla
                 <ScriptRunner
                     details={chosenScriptDetails}
                     paramValues={paramValues}
