@@ -8,35 +8,38 @@ import ListItemAvatar from "@material-ui/core/es/ListItemAvatar/ListItemAvatar";
 import css from './ScriptInfo.pcss';
 
 
-class ScriptInfo extends React.Component {
-    render() {
-        const { scriptId, scriptName, scriptDescription, setChosenScriptId } = this.props;
+function ScriptInfo(props) {
+    const {
+        scriptId,
+        scriptName,
+        scriptDescription,
+        setChosenScriptId
+    } = props;
 
-        // TODO: add an option to display \n in description
-        return (
-            <ListItem button
-                key={scriptId}
-                className={css.scriptInfo}
-                onClick={() => {
-                    setChosenScriptId(scriptId)
+    // TODO: add an option to display \n in description
+    return (
+        <ListItem button
+            key={scriptId}
+            className={css.scriptInfo}
+            onClick={() => {
+                setChosenScriptId(scriptId)
+            }}
+        >
+            <ListItemText
+                primary={scriptName}
+                secondary={scriptDescription}
+                classes={{
+                    primary: css.title,
+                    secondary: css.secondaryTitle
                 }}
-            >
-                <ListItemText
-                    primary={scriptName}
-                    secondary={scriptDescription}
-                    classes={{
-                        primary: css.title,
-                        secondary: css.secondaryTitle
-                    }}
-                />
-                <ListItemAvatar>
-                    <Avatar>
-                        <ImageIcon />
-                    </Avatar>
-                </ListItemAvatar>
-            </ListItem>
-        )
-    }
+            />
+            <ListItemAvatar>
+                <Avatar>
+                    <ImageIcon />
+                </Avatar>
+            </ListItemAvatar>
+        </ListItem>
+    )
 }
 
 export default ScriptInfo;
