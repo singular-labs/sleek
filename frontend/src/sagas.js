@@ -1,30 +1,9 @@
 import { delay } from 'redux-saga'
 import { put, call, all, takeEvery } from 'redux-saga/effects'
-import {
-    cleanRunningScriptState,
-    RUN_SCRIPT, scriptFinished,
-    UPDATE_CHOSEN_SCRIPT,
-    updateAvailableScripts,
-    updateChosenScriptDetails, updateScriptStatus
-} from "./actions";
+import {cleanRunningScriptState, RUN_SCRIPT, scriptFinished, updateScriptStatus} from "./actions";
 import API from "./api"
 
 const SCRIPT_POLLING_INTERVAL = 100;
-
-function* getAllScripts() {
-    const response = yield call(API.getAvailableScripts);
-    yield put(updateAvailableScripts(response.data));
-}
-
-function* getScriptDetails(action) {
-    try {
-        const response = yield call(API.getScriptDetails, action.scriptID);
-        yield put(updateChosenScriptDetails(response.data));
-        yield put(cleanRunningScriptState());
-    } catch(error) {
-        console.log(error);
-    }
-}
 
 function* runScript(action) {
     try {
@@ -58,18 +37,12 @@ function* runScript(action) {
     }
 }
 
-function* watchGetScriptDetails() {
-    yield takeEvery(UPDATE_CHOSEN_SCRIPT, getScriptDetails)
-}
-
 function* watchRunScript() {
     yield takeEvery(RUN_SCRIPT, runScript)
 }
 
 export function* rootSaga() {
     yield all([
-        getAllScripts(),
-        watchGetScriptDetails(),
         watchRunScript()
     ])
 }
