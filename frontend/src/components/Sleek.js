@@ -1,12 +1,14 @@
 import { hot } from 'react-hot-loader/root'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import Divider from '@material-ui/core/Divider';
 import SearchField from "./SearchField";
 import ScriptsList from "./ScriptsList";
 import ScriptRunner from "./ScriptRunner";
 import css from './Sleek.pcss';
+import {call} from "redux-saga/effects";
+import API from "../api";
 
 
 function filterScripts(scripts, filterString) {
@@ -39,13 +41,12 @@ function Sleek(props) {
         runScript
     } = props;
 
-    let scripts = [
-        {'id': 1, 'name': 'Script 1', 'description': 'Get ready to be wowed!'},
-        {'id': 2, 'name': 'Script 2', 'description': 'You have never seen such a script!'},
-        {'id': 3, 'name': 'Script 3', 'description': 'Run when you are bored!'},
-    ]
-
+    let [scripts, setScripts] = useState([]);
     let [searchValue, setSearchValue] = useState('');
+
+    useEffect(() => {
+        API.getAvailableScripts().then(response => setScripts(response.data));
+    }, [])
 
     return (
         <div className={css.mainDiv}>
