@@ -33,7 +33,6 @@ function Sleek(props) {
         paramValues,
         scriptStatus,
         scriptResult,
-        onParamChange,
         runScript
     } = props;
 
@@ -74,7 +73,6 @@ function Sleek(props) {
                 paramValues={paramValues}
                 scriptStatus={scriptStatus}
                 scriptResult={scriptResult}
-                onParamChange={onParamChange}
                 runScript={runScript}
             />
         </div>

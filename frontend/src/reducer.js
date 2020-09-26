@@ -1,5 +1,4 @@
 import {
-    CHANGE_PARAM_VALUE,
     UPDATE_SCRIPT_STATUS,
     SCRIPT_FINISHED, CLEAN_RUNNING_SCRIPT_STATE
 } from "./actions";
@@ -17,15 +16,6 @@ const initialState = {
 
 function reducer(state=initialState, action) {
     switch (action.type) {
-        case CHANGE_PARAM_VALUE:
-            return {
-                ...state,
-                paramValues: {
-                    ...state.paramValues,
-                    [action.name]: action.value
-                }
-            };
-
         case UPDATE_SCRIPT_STATUS:
             return {
                 ...state,
