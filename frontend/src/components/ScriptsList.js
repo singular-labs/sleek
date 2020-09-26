@@ -8,16 +8,17 @@ import css from './ScriptsList.pcss';
 
 class ScriptsList extends React.Component {
     render () {
-        const { filteredScripts, updateChosenScript, chosenScriptID } = this.props;
+        const { filteredScripts, setChosenScriptId, chosenScriptId } = this.props;
 
         const scripts = filteredScripts.map((script) => {
             return (
-                <ScriptInfo key={script.id}
-                    scriptID={script.id}
+                <ScriptInfo
+                    key={script.id}
+                    scriptId={script.id}
                     scriptName={script.name}
                     scriptDescription={script.description}
-                    updateChosenScript={updateChosenScript}
-                    chosenScriptID={chosenScriptID}
+                    setChosenScriptId={setChosenScriptId}
+                    chosenScriptId={chosenScriptId}
                 />
             )
         });
@@ -31,4 +32,4 @@ class ScriptsList extends React.Component {
 }
 
 
-export default  ScriptsList;
+export default ScriptsList;

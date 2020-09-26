@@ -8,31 +8,18 @@ import ListItemAvatar from "@material-ui/core/es/ListItemAvatar/ListItemAvatar";
 import css from './ScriptInfo.pcss';
 
 
-//const styles = theme => ({
-//    scriptInfo: {
-//    width: '95%',
-//    maxWidth: 575,
-//
-//    marginLeft: 10,
-//    marginTop: 10,
-//    marginBottom: 10,
-//    fontFamily: 'Open Sans',
-//    fontSize: '14px',
-//    fontWeight: 600,
-//    color: '#454b56',
-//}
-//});
-
 class ScriptInfo extends React.Component {
     render() {
-        const { scriptID, scriptName, scriptDescription } = this.props;
+        const { scriptId, scriptName, scriptDescription, setChosenScriptId } = this.props;
 
         // TODO: add an option to display \n in description
         return (
             <ListItem button
-                key={scriptID}
+                key={scriptId}
                 className={css.scriptInfo}
-                onClick={() => this.onScriptClick(scriptID)}
+                onClick={() => {
+                    setChosenScriptId(scriptId)
+                }}
             >
                 <ListItemText
                     primary={scriptName}
@@ -50,14 +37,6 @@ class ScriptInfo extends React.Component {
             </ListItem>
         )
     }
-
-    onScriptClick(scriptID) {
-        const { chosenScriptID, updateChosenScript} = this.props;
-        if (chosenScriptID !== scriptID) {
-            updateChosenScript(scriptID);
-        }
-    }
-
 }
 
 export default ScriptInfo;

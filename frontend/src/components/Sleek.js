@@ -7,7 +7,6 @@ import SearchField from "./SearchField";
 import ScriptsList from "./ScriptsList";
 import ScriptRunner from "./ScriptRunner";
 import css from './Sleek.pcss';
-import {call} from "redux-saga/effects";
 import API from "../api";
 
 
@@ -31,9 +30,6 @@ function filterScripts(scripts, filterString) {
 
 function Sleek(props) {
     const {
-        chosenScriptID,
-        updateChosenScript,
-        chosenScriptDetails,
         paramValues,
         scriptStatus,
         scriptResult,
@@ -43,6 +39,7 @@ function Sleek(props) {
 
     let [scripts, setScripts] = useState([]);
     let [searchValue, setSearchValue] = useState('');
+    let [chosenScriptId, setChosenScriptId] = useState(null);
 
     useEffect(() => {
         API.getAvailableScripts().then(response => setScripts(response.data));
@@ -68,12 +65,12 @@ function Sleek(props) {
 
                 <ScriptsList
                     filteredScripts={filterScripts(scripts, searchValue)}
-                    updateChosenScript={updateChosenScript}
-                    chosenScriptID={chosenScriptID}
+                    setChosenScriptId={setChosenScriptId}
+                    chosenScriptId={chosenScriptId}
                 />
             </Drawer>
             <ScriptRunner
-                details={chosenScriptDetails}
+                chosenScriptId={chosenScriptId}
                 paramValues={paramValues}
                 scriptStatus={scriptStatus}
                 scriptResult={scriptResult}
