@@ -1,12 +1,11 @@
 import { connect } from "react-redux"
 
 import Sleek from "./components/Sleek";
-import { changeParamValue, runScript } from "./actions";
+import { runScript } from "./actions";
 
 
 function mapStateToProps(state) {
     return {
-        paramValues: state.paramValues,
         scriptResult: state.scriptResult,
         scriptStatus: state.scriptStatus
     }
@@ -14,7 +13,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onParamChange: (name, value) => dispatch(changeParamValue(name, value)),
         runScript: (scriptID, paramValues) => dispatch(runScript(scriptID, paramValues))
     }
 }

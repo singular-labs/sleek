@@ -1,18 +1,8 @@
-export const CHANGE_PARAM_VALUE = "CHANGE_PARAM_VALUE";
 export const RUN_SCRIPT = "RUN_SCRIPT";
 export const UPDATE_SCRIPT_STATUS = "UPDATE_SCRIPT_STATUS";
 export const SCRIPT_FINISHED = "SCRIPT_FINISHED";
 export const CLEAN_RUNNING_SCRIPT_STATE = "CLEAN_RUNNING_SCRIPT_STATE";
 
-
-
-export function changeParamValue(name, value) {
-    return {
-        "type": CHANGE_PARAM_VALUE,
-        "name": name,
-        "value": value
-    }
-}
 
 export function runScript(scriptID, paramValues) {
     return {

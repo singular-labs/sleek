@@ -12,10 +12,8 @@ import css from './ScriptRunner.pcss';
 function ScriptRunner(props) {
     const {
         chosenScriptId,
-        paramValues,
         scriptStatus,
         scriptResult,
-        onParamChange,
         runScript
     } = props;
 
@@ -24,9 +22,12 @@ function ScriptRunner(props) {
     }
 
     let [scriptDetails, setScriptDetails] = useState(null);
+    let [scriptParamsValues, setScriptParamsValues] = useState({});
+
     useEffect(() => {
         API.getScriptDetails(chosenScriptId).then( response => {
             setScriptDetails(response.data);
+            setScriptParamsValues({});
         })
     }, [chosenScriptId])
 
@@ -38,8 +39,12 @@ function ScriptRunner(props) {
         <Grid item key={param.name}>
             <ScriptParam
                 name={param.name}
-                value={paramValues[param.name]}
-                onChange={(value) => onParamChange(param.name, value)}
+                value={scriptParamsValues[param.name]}
+                onChange={value => {
+                    let params = Object.assign({}, scriptParamsValues);
+                    params[param.name] = value;
+                    setScriptParamsValues(params)
+                }}
             />
         </Grid>
     ));
@@ -48,7 +53,12 @@ function ScriptRunner(props) {
         <div className={css.content}>
             <div className={css.scriptTop}>
                 <span className={css.scriptTitle}>{scriptDetails.name}</span>
-                <Button className={css.runButton} onClick={() => runScript(scriptDetails.id, paramValues)} color="primary" variant="contained">
+                <Button
+                    className={css.runButton}
+                    onClick={() => runScript(scriptDetails.id, scriptParamsValues)}
+                    color="primary"
+                    variant="contained"
+                >
                     Run Script
                 </Button>
             </div>
