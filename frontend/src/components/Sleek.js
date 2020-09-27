@@ -29,13 +29,6 @@ function filterScripts(scripts, filterString) {
 
 
 function Sleek(props) {
-    const {
-        paramValues,
-        scriptStatus,
-        scriptResult,
-        runScript
-    } = props;
-
     let [scripts, setScripts] = useState([]);
     let [searchValue, setSearchValue] = useState('');
     let [chosenScriptId, setChosenScriptId] = useState(null);
@@ -70,10 +63,6 @@ function Sleek(props) {
             </Drawer>
             <ScriptRunner
                 chosenScriptId={chosenScriptId}
-                paramValues={paramValues}
-                scriptStatus={scriptStatus}
-                scriptResult={scriptResult}
-                runScript={runScript}
             />
         </div>
     );
