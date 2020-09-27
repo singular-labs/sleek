@@ -9,13 +9,8 @@ import css from './ScriptResults.pcss';
 
 function ScriptResults(props) {
     const {
-        scriptStatus
+        logs
     } = props
-
-    let logs = "";
-    if (scriptStatus.scriptRunID !== null) {
-        logs = scriptStatus.logs;
-    }
 
     return (
         <div className={css.scriptResults}>

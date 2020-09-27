@@ -9,12 +9,19 @@ import API from "../api";
 import css from './ScriptRunner.pcss';
 
 
+const SCRIPT_RUN_STATE_NONE = "none"
+const SCRIPT_RUN_STATE_START = "start"
+const SCRIPT_RUN_STATE_RUNNING = "running"
+const SCRIPT_RUN_STATE_POLLING = "polling"
+const SCRIPT_RUN_STATE_SUCCESS = "success"
+const SCRIPT_RUN_STATE_FAILED = "failed"
+
+const SCRIPT_POLLING_INTERVAL = 100;
+
+
 function ScriptRunner(props) {
     const {
-        chosenScriptId,
-        scriptStatus,
-        scriptResult,
-        runScript
+        chosenScriptId
     } = props;
 
     if (!chosenScriptId) {
@@ -30,6 +37,10 @@ function ScriptRunner(props) {
             setScriptParamsValues({});
         })
     }, [chosenScriptId])
+
+    const [scriptRunState, scriptSetRunState, scriptLogs] = useRunScript(
+        chosenScriptId, scriptParamsValues
+    )
 
     if (!scriptDetails) {
         return <div/>
@@ -55,9 +66,10 @@ function ScriptRunner(props) {
                 <span className={css.scriptTitle}>{scriptDetails.name}</span>
                 <Button
                     className={css.runButton}
-                    onClick={() => runScript(scriptDetails.id, scriptParamsValues)}
+                    onClick={() => scriptSetRunState(SCRIPT_RUN_STATE_START)}
                     color="primary"
                     variant="contained"
+                    disabled={isScriptRunning(scriptRunState)}
                 >
                     Run Script
                 </Button>
@@ -69,11 +81,75 @@ function ScriptRunner(props) {
             </div>
             <Divider/>
             <ScriptResults
-                scriptStatus={scriptStatus}
-                scriptResult={scriptResult}
+                logs={scriptLogs}
             />
         </div>
     );
+}
+
+function isScriptRunning(scriptRunState) {
+    return (
+        scriptRunState === SCRIPT_RUN_STATE_START ||
+        scriptRunState === SCRIPT_RUN_STATE_RUNNING ||
+        scriptRunState === SCRIPT_RUN_STATE_POLLING
+    )
+}
+
+function useRunScript(scriptID, paramValues) {
+    const [scriptRunID, setScriptRunID] = useState(null);
+    const [scriptLogs, setScriptLogs] = useState("");
+    const [scriptRunState, setScriptRunState] = useState(SCRIPT_RUN_STATE_NONE)
+
+    // Run script if in "start" state
+    useEffect(() => {
+        if (scriptRunState === SCRIPT_RUN_STATE_START) {
+            setScriptRunID(null);
+            API.runScript(scriptID, paramValues).then(
+                response => {
+                    setScriptRunState(SCRIPT_RUN_STATE_RUNNING);
+                    setScriptRunID(response.data["script_run_id"]);
+                },
+                err => {
+                    console.log(err);
+                    setScriptRunState(SCRIPT_RUN_STATE_FAILED);
+                }
+            );
+        }
+    }, [scriptID, scriptRunState]);
+
+    // If in the running state, move to polling state after a timeout interval
+    useEffect(() => {
+        if (scriptRunState === SCRIPT_RUN_STATE_RUNNING) {
+            const timeout = setTimeout(() => {
+                setScriptRunState(SCRIPT_RUN_STATE_POLLING);
+            }, SCRIPT_POLLING_INTERVAL)
+            return () => clearTimeout(timeout);
+        }
+    }, [scriptID, scriptRunState, scriptRunID])
+
+    // If in the polling state, poll the results and update the state accordingly
+    useEffect(() => {
+        if (scriptRunState === SCRIPT_RUN_STATE_POLLING) {
+            API.getScriptStatus(scriptRunID).then(
+                response => {
+                    setScriptLogs(response.data["logs"]);
+
+                    if (response.data["is_done"]) {
+                        // TODO: Handle script failures!! (we don't currently get them from the backend)
+                        setScriptRunState(SCRIPT_RUN_STATE_SUCCESS);
+                    } else {
+                        setScriptRunState(SCRIPT_RUN_STATE_RUNNING)
+                    }
+                },
+                err => {
+                    console.log(err);
+                    setScriptRunState(SCRIPT_RUN_STATE_FAILED);
+                }
+            )
+        }
+    }, [scriptRunState, scriptRunID]);
+
+    return [scriptRunState, setScriptRunState, scriptLogs];
 }
 
 export default ScriptRunner;
