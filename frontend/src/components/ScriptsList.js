@@ -7,7 +7,7 @@ import css from './ScriptsList.pcss';
 
 
 function ScriptsList(props) {
-    const { filteredScripts, setChosenScriptId, chosenScriptId } = props;
+    const { filteredScripts, setChosenScriptId } = props;
 
     const scripts = filteredScripts.map((script) => {
         return (
@@ -15,7 +15,6 @@ function ScriptsList(props) {
                 key={script.id}
                 script={script}
                 setChosenScriptId={setChosenScriptId}
-                chosenScriptId={chosenScriptId}
             />
         )
     });
