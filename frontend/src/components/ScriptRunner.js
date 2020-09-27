@@ -100,10 +100,18 @@ function useRunScript(scriptID, paramValues) {
     const [scriptLogs, setScriptLogs] = useState("");
     const [scriptRunState, setScriptRunState] = useState(SCRIPT_RUN_STATE_NONE)
 
+    // Make sure if script is changed we reset the state
+    useEffect(() => {
+        setScriptRunID(null);
+        setScriptLogs("");
+        setScriptRunState(SCRIPT_RUN_STATE_NONE);
+    }, [scriptID])
+
     // Run script if in "start" state
     useEffect(() => {
         if (scriptRunState === SCRIPT_RUN_STATE_START) {
             setScriptRunID(null);
+            setScriptLogs("");
             API.runScript(scriptID, paramValues).then(
                 response => {
                     setScriptRunState(SCRIPT_RUN_STATE_RUNNING);
@@ -115,7 +123,7 @@ function useRunScript(scriptID, paramValues) {
                 }
             );
         }
-    }, [scriptID, scriptRunState]);
+    }, [scriptRunState]);
 
     // If in the running state, move to polling state after a timeout interval
     useEffect(() => {
@@ -125,14 +133,14 @@ function useRunScript(scriptID, paramValues) {
             }, SCRIPT_POLLING_INTERVAL)
             return () => clearTimeout(timeout);
         }
-    }, [scriptID, scriptRunState, scriptRunID])
+    }, [scriptRunState, scriptRunID])
 
     // If in the polling state, poll the results and update the state accordingly
     useEffect(() => {
         if (scriptRunState === SCRIPT_RUN_STATE_POLLING) {
             API.getScriptStatus(scriptRunID).then(
                 response => {
-                    setScriptLogs(response.data["logs"]);
+                    setScriptLogs(scriptLogs + response.data["logs"]);
 
                     if (response.data["is_done"]) {
                         // TODO: Handle script failures!! (we don't currently get them from the backend)
