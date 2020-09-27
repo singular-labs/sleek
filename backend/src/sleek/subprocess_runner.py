@@ -31,7 +31,6 @@ class SubprocessRunner(object):
         output = ""
         while self.parent_conn.poll(timeout=SLEEP_INTERVAL):
             timestamp, string = self.parent_conn.recv()
-            print(string)
             if string == "\n":
                 continue
 
