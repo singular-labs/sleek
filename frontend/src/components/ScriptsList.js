@@ -6,29 +6,25 @@ import ScriptInfo from './ScriptInfo';
 import css from './ScriptsList.pcss';
 
 
-class ScriptsList extends React.Component {
-    render () {
-        const { filteredScripts, setChosenScriptId, chosenScriptId } = this.props;
+function ScriptsList(props) {
+    const { filteredScripts, setChosenScriptId, chosenScriptId } = props;
 
-        const scripts = filteredScripts.map((script) => {
-            return (
-                <ScriptInfo
-                    key={script.id}
-                    scriptId={script.id}
-                    scriptName={script.name}
-                    scriptDescription={script.description}
-                    setChosenScriptId={setChosenScriptId}
-                    chosenScriptId={chosenScriptId}
-                />
-            )
-        });
-
+    const scripts = filteredScripts.map((script) => {
         return (
-            <List className={css.List}>
-                {scripts}
-            </List>
-        );
-    }
+            <ScriptInfo
+                key={script.id}
+                script={script}
+                setChosenScriptId={setChosenScriptId}
+                chosenScriptId={chosenScriptId}
+            />
+        )
+    });
+
+    return (
+        <List className={css.scriptsList}>
+            {scripts}
+        </List>
+    );
 }
 
 

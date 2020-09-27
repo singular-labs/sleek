@@ -1,20 +1,13 @@
 import React from "react";
 
-import Avatar from "@material-ui/core/es/Avatar/Avatar";
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
-import ImageIcon from '@material-ui/icons/Image';
 import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
-import ListItemAvatar from "@material-ui/core/es/ListItemAvatar/ListItemAvatar";
 import css from './ScriptInfo.pcss';
 
 
 function ScriptInfo(props) {
-    const {
-        scriptId,
-        scriptName,
-        scriptDescription,
-        setChosenScriptId
-    } = props;
+    const { script, setChosenScriptId } = props;
+    const scriptId = script.id;
 
     // TODO: add an option to display \n in description
     return (
@@ -25,19 +18,30 @@ function ScriptInfo(props) {
                 setChosenScriptId(scriptId)
             }}
         >
-            <ListItemText
-                primary={scriptName}
-                secondary={scriptDescription}
-                classes={{
-                    primary: css.title,
-                    secondary: css.secondaryTitle
-                }}
-            />
-            <ListItemAvatar>
-                <Avatar>
-                    <ImageIcon />
-                </Avatar>
-            </ListItemAvatar>
+            <div style={{display: 'block'}}>
+                <div className={css.textContainer}>
+                    <ListItemText
+                        primary={script.name}
+                        secondary={script.description}
+                        classes={{
+                            primary: css.scriptInfoTitle,
+                            secondary: css.secondaryTitle
+                        }}
+                    />
+                    <img
+                        src="../../resources/log-file-format.svg"
+                        className={css.scriptAvatar}
+                    />
+                </div>
+                <div className={css.updateInfo}>
+                    <div className={css.updateUser}>
+                        Created by {script.creating_user}
+                    </div>
+                    <div className={css.updateTime}>
+                        {script.creation_time}
+                    </div>
+                </div>
+            </div>
         </ListItem>
     )
 }
