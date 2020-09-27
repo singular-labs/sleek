@@ -16,8 +16,8 @@ class Sleek(object):
 
         self.running_scripts = {}
 
-    def register(self, click_command, script_name=None):
-        script = SleekScript(click_command, script_name)
+    def register(self, click_command, script_name=None, creation_time=None, creating_user=None):
+        script = SleekScript(click_command, script_name, creation_time, creating_user)
         self.scripts[script.id] = script
 
     def get_available_scripts(self):
