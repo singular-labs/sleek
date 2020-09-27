@@ -14,7 +14,7 @@ const SCRIPT_RUN_STATE_START = "start"
 const SCRIPT_RUN_STATE_RUNNING = "running"
 const SCRIPT_RUN_STATE_POLLING = "polling"
 const SCRIPT_RUN_STATE_SUCCESS = "success"
-const SCRIPT_RUN_STATE_FAILED = "failed"
+const SCRIPT_RUN_STATE_FAILURE = "failure"
 
 const SCRIPT_POLLING_INTERVAL = 100;
 
@@ -129,7 +129,7 @@ function useRunScript(scriptID, paramValues) {
                 },
                 err => {
                     console.log(err);
-                    setScriptRunState(SCRIPT_RUN_STATE_FAILED);
+                    setScriptRunState(SCRIPT_RUN_STATE_FAILURE);
                 }
             );
         }
@@ -151,17 +151,12 @@ function useRunScript(scriptID, paramValues) {
             API.getScriptStatus(scriptRunID).then(
                 response => {
                     setScriptLogs(scriptLogs + response.data["logs"]);
-
-                    if (response.data["is_done"]) {
-                        // TODO: Handle script failures!! (we don't currently get them from the backend)
-                        setScriptRunState(SCRIPT_RUN_STATE_SUCCESS);
-                    } else {
-                        setScriptRunState(SCRIPT_RUN_STATE_RUNNING)
-                    }
+                    setScriptRunState(response.data["run_state"])
+                    console.log("Run state: " + response.data["run_state"])
                 },
                 err => {
                     console.log(err);
-                    setScriptRunState(SCRIPT_RUN_STATE_FAILED);
+                    setScriptRunState(SCRIPT_RUN_STATE_FAILURE);
                 }
             )
         }

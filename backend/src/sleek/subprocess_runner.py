@@ -10,6 +10,10 @@ TIMESTAMP_FORMAT = "%A, %d %b %Y %I:%M:%S %p"
 
 
 class SubprocessRunner(object):
+    SCRIPT_RUN_STATE_SUCCESS = "success"
+    SCRIPT_RUN_STATE_FAILURE = "failure"
+    SCRIPT_RUN_STATE_RUNNING = "running"
+
     def __init__(self, func, *args, **kwargs):
         self.func = func
         self.args = args
@@ -24,8 +28,12 @@ class SubprocessRunner(object):
     def get_result(self):
         return self.process.exitcode
 
-    def is_done(self):
-        return self.process.exitcode is not None
+    def run_state(self):
+        if self.process.exitcode == 0:
+            return self.SCRIPT_RUN_STATE_SUCCESS
+        if self.process.exitcode and self.process.exitcode != 0:
+            return self.SCRIPT_RUN_STATE_FAILURE
+        return self.SCRIPT_RUN_STATE_RUNNING
 
     def read_output(self):
         output = ""
@@ -48,6 +56,7 @@ class SubprocessRunner(object):
             print("An exception occured while running the script!")
             print("Traceback:")
             traceback.print_exc()
+            sys.exit(1)
 
 
 class PipeOutput(object):

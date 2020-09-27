@@ -46,8 +46,8 @@ class Sleek(object):
 
         runner = self.running_scripts[script_run_id]
 
-        is_done = runner.is_done()
+        run_state = runner.run_state()
         logs = runner.read_output()
         result = runner.get_result()
 
-        return ScriptStatus(is_done, logs, result)
+        return ScriptStatus(run_state, logs, result)
