@@ -28,15 +28,10 @@ function ScriptRunner(props) {
         return <div/>
     }
 
-    let [scriptDetails, setScriptDetails] = useState(null);
     let [scriptParamsValues, setScriptParamsValues] = useState({});
 
-    useEffect(() => {
-        API.getScriptDetails(chosenScriptId).then( response => {
-            setScriptDetails(response.data);
-            setScriptParamsValues({});
-        })
-    }, [chosenScriptId])
+    const scriptDetails = useScriptDetails(chosenScriptId,
+        () => setScriptParamsValues({}))
 
     const [scriptRunState, scriptSetRunState, scriptLogs] = useRunScript(
         chosenScriptId, scriptParamsValues
@@ -93,6 +88,21 @@ function isScriptRunning(scriptRunState) {
         scriptRunState === SCRIPT_RUN_STATE_RUNNING ||
         scriptRunState === SCRIPT_RUN_STATE_POLLING
     )
+}
+
+function useScriptDetails(scriptId, callback=null) {
+    let [scriptDetails, setScriptDetails] = useState(null);
+
+    useEffect(() => {
+        API.getScriptDetails(scriptId).then( response => {
+            setScriptDetails(response.data);
+            if (callback) {
+                callback()
+            }
+        })
+    }, [scriptId])
+
+    return scriptDetails
 }
 
 function useRunScript(scriptID, paramValues) {

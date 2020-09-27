@@ -10,32 +10,10 @@ import css from './Sleek.pcss';
 import API from "../api";
 
 
-function filterScripts(scripts, filterString) {
-    if (!filterString) {
-        return scripts
-    } else {
-        const searchableScriptAttributes = ['name', 'description'];
-        const lowerFilterString = filterString.toLowerCase();
-
-        return scripts.filter((script) => {
-            return searchableScriptAttributes.some((scriptAttr) => {
-                    return script[scriptAttr].toLowerCase().indexOf(lowerFilterString) > -1
-                }
-            )
-        })
-
-    }
-}
-
-
 function Sleek(props) {
-    let [scripts, setScripts] = useState([]);
+    let scripts = useAvailableScripts();
     let [searchValue, setSearchValue] = useState('');
     let [chosenScriptId, setChosenScriptId] = useState(null);
-
-    useEffect(() => {
-        API.getAvailableScripts().then(response => setScripts(response.data));
-    }, [])
 
     return (
         <div className={css.mainDiv}>
@@ -67,5 +45,35 @@ function Sleek(props) {
         </div>
     );
 }
+
+
+function useAvailableScripts() {
+    let [scripts, setScripts] = useState([]);
+
+    useEffect(() => {
+        API.getAvailableScripts().then(response => setScripts(response.data));
+    }, []);
+
+    return scripts;
+}
+
+
+function filterScripts(scripts, filterString) {
+    if (!filterString) {
+        return scripts
+    } else {
+        const searchableScriptAttributes = ['name', 'description'];
+        const lowerFilterString = filterString.toLowerCase();
+
+        return scripts.filter((script) => {
+            return searchableScriptAttributes.some((scriptAttr) => {
+                    return script[scriptAttr].toLowerCase().indexOf(lowerFilterString) > -1
+                }
+            )
+        })
+
+    }
+}
+
 
 export default hot(Sleek);
