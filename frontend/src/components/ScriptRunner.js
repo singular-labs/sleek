@@ -7,6 +7,7 @@ import ScriptResults from "./ScriptResults";
 import API from "../api";
 
 import css from './ScriptRunner.pcss';
+import Toolbar from "@material-ui/core/es/Toolbar/Toolbar";
 
 
 const SCRIPT_RUN_STATE_NONE = "none"
@@ -57,6 +58,7 @@ function ScriptRunner(props) {
 
     return (
         <div className={css.content}>
+            <Toolbar />     {/* Added only to make sure the content is below the toolbar */}
             <div className={css.scriptTop}>
                 <span className={css.scriptTitle}>{scriptDetails.name}</span>
                 <Button
