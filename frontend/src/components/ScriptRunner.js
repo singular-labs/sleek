@@ -5,19 +5,15 @@ import ScriptParam from "./ScriptParam";
 import Divider from "@material-ui/core/es/Divider/Divider";
 import ScriptResults from "./ScriptResults";
 import API from "../api";
+import {
+    SCRIPT_RUN_STATE_NONE, SCRIPT_RUN_STATE_START, SCRIPT_RUN_STATE_RUNNING,
+    SCRIPT_RUN_STATE_POLLING, SCRIPT_RUN_STATE_FAILURE, SCRIPT_POLLING_INTERVAL
+} from "../consts"
 
 import css from './ScriptRunner.pcss';
 import Toolbar from "@material-ui/core/es/Toolbar/Toolbar";
-
-
-const SCRIPT_RUN_STATE_NONE = "none"
-const SCRIPT_RUN_STATE_START = "start"
-const SCRIPT_RUN_STATE_RUNNING = "running"
-const SCRIPT_RUN_STATE_POLLING = "polling"
-const SCRIPT_RUN_STATE_SUCCESS = "success"
-const SCRIPT_RUN_STATE_FAILURE = "failure"
-
-const SCRIPT_POLLING_INTERVAL = 100;
+import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
+import ScriptStatus from "./ScriptStatus";
 
 
 function ScriptRunner(props) {
@@ -70,16 +66,19 @@ function ScriptRunner(props) {
                 >
                     Run Script
                 </Button>
-            </div>
-            <div className={css.scriptParams}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="center"
-                >
-                    {paramComponents}
-                </Grid>
+                <div className={css.scriptParams}>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="center"
+                    >
+                        {paramComponents}
+                    </Grid>
+                </div>
+                <div className={css.scriptStatus}>
+                    <ScriptStatus runState={scriptRunState}/>
+                </div>
             </div>
             <Divider/>
             <ScriptResults
