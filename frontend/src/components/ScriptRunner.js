@@ -43,7 +43,7 @@ function ScriptRunner(props) {
     }
 
     const paramComponents = scriptDetails.params.map((param) => (
-        <Grid item key={param.name}>
+        <Grid item key={param.name} className={css.gridCell}>
             <ScriptParam
                 name={param.name}
                 value={scriptParamsValues[param.name]}
@@ -72,7 +72,12 @@ function ScriptRunner(props) {
                 </Button>
             </div>
             <div className={css.scriptParams}>
-                <Grid container>
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="center"
+                >
                     {paramComponents}
                 </Grid>
             </div>

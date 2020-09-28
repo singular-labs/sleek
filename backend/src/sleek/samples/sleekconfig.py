@@ -5,6 +5,7 @@ from sleek.app import Sleek
 from arithmetic import arithmetic
 from sierpinski import sierpinski
 from timer import timer
+from many_params import many_params
 
 app = Sleek("Singular")
 app.register(
@@ -22,4 +23,7 @@ app.register(
 app.register(
     timer,
     script_name="Countdown Timer"
+)
+app.register(
+    many_params
 )
