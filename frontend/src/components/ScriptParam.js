@@ -9,16 +9,22 @@ function transformParameterName(parameterName) {
     return parameterName
 }
 
-function isValidParamValue(value, type) {
+function isValidParamValue(value, type, options) {
     if (!value) {
         return true
     }
 
     switch (type) {
         case 'string':
-            return true
+            return [true, '']
         case 'integer':
-            return Number.isInteger(+value)
+            return [Number.isInteger(+value), 'Parameter should be integer']
+        case 'float':
+            return [Number.isFinite(+value), 'Parameter should be float']
+        case 'boolean':
+            return [['true', 'false'].includes(value), 'Parameter should be true or false']
+        case 'choice':
+            return [options['choices'].includes(value), `Parameter should be one of ${options['choices']}`]
         default:
             throw SyntaxError(`Unknown type ${type}`)
     }
@@ -27,13 +33,13 @@ function isValidParamValue(value, type) {
 function ParamValidationMessage(props) {
     let {
         isValidParam,
-        type
+        invalidParamMessage
     } = props
 
     return (
         !isValidParam &&
         <div className={css.invalidParamMessage}>
-            Parameter should be {type}!
+            {invalidParamMessage}
         </div>
     )
 }
@@ -42,12 +48,14 @@ function ScriptParam(props) {
     const {
         name,
         type,
+        options,
         value,
         scriptParamsValues,
         setScriptParamsValues
     } = props;
 
     let [isValidParam, setIsValidParam] = useState(true);
+    let [invalidParamMessage, setInvalidParamMessage] = useState('');
 
     return (
         <div
@@ -66,13 +74,16 @@ function ScriptParam(props) {
                     let params = Object.assign({}, scriptParamsValues);
                     params[name] = event.target.value;
                     setScriptParamsValues(params);
-                    setIsValidParam(isValidParamValue(event.target.value, type));
+
+                    let [validationResult, invalidMessageResult] = isValidParamValue(event.target.value, type, options)
+                    setIsValidParam(validationResult);
+                    setInvalidParamMessage(invalidMessageResult);
                 }}
             >
             </input>
             <ParamValidationMessage
                 isValidParam={isValidParam}
-                type={type}
+                invalidParamMessage={invalidParamMessage}
             />
         </div>
     );

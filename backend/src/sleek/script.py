@@ -6,8 +6,11 @@ class SleekScript(object):
     UNKNOWN_DATE_STRING = 'Unknown Date'
 
     CLICK_TYPES_MAP = {
-        click.STRING: 'string',
-        click.INT: 'integer'
+        click.STRING.name: 'string',
+        click.INT.name: 'integer',
+        click.BOOL.name: 'boolean',
+        click.FLOAT.name: 'float',
+        click.Choice.name: 'choice',
     }
 
     def __init__(self, click_command, name=None, creation_time=None, creating_user=None):
@@ -43,7 +46,11 @@ class SleekScript(object):
 
     @property
     def params(self):
-        return [{"name": param.name, "type": self._get_param_type(param.type)} for param in self.click_command.params]
+        return [{
+            "name": param.name,
+            "type": self._get_param_type(param),
+            "options": self._get_param_options(param)
+        } for param in self.click_command.params]
 
     @property
     def creation_time(self):
@@ -75,10 +82,17 @@ class SleekScript(object):
         return self.click_command.callback(**param_values)
 
     @classmethod
-    def _get_param_type(cls, click_type):
+    def _get_param_type(cls, param):
+        click_type = param.type.name
         param_type = cls.CLICK_TYPES_MAP.get(click_type)
 
         if param_type is None:
             raise NotImplementedError("Type {} not supported!".format(param_type))
 
         return param_type
+
+    @classmethod
+    def _get_param_options(cls, param):
+        return {
+            'choices': param.type.choices if hasattr(param.type, 'choices') else None
+        }

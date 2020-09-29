@@ -42,6 +42,7 @@ function ScriptRunner(props) {
             <ScriptParam
                 name={param.name}
                 type={param.type}
+                options={param.options}
                 value={scriptParamsValues[param.name]}
                 scriptParamsValues={scriptParamsValues}
                 setScriptParamsValues={setScriptParamsValues}
