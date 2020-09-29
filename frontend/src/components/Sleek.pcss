@@ -4,13 +4,18 @@
     --drawerWidth: 25%;
     --titleColor: #454b56;
     --descriptionColor: #454b56;
-    --blue: #2188F0;
+    --darkBlue: #3088f4;
+    --lightBlue: #68b1ff;
 }
 
 .appBar {
     z-index: 3;
-    background-color: var(--blue)!important;
     box-shadow: none!important;
+    width: 100%!important;
+    height: 54px!important;
+    min-height: 54px!important;
+    margin-top: -10px;
+    background-image: linear-gradient(to left, var(--lightBlue), var(--darkBlue));
 }
 
 .hide {
@@ -23,11 +28,13 @@
 
 .drawerPaper {
     width: var(--drawerWidth);
+    margin-top: -20px!important;
 }
 .drawer {
     z-index: 1;
     width: var(--drawerWidth);
     flex-shrink: 0!important;
+    margin-top: -20px!important;
 }
 
 .runnerContainer {
