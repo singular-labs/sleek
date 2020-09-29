@@ -25,5 +25,6 @@ app.register(
     script_name="Countdown Timer"
 )
 app.register(
-    many_params
+    many_params,
+    script_name="Many Params"
 )
