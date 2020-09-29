@@ -3,7 +3,7 @@ import time
 
 
 @click.command(help="Count down with the given number of seconds")
-@click.argument("seconds")
+@click.argument("seconds", type=int)
 def timer(seconds):
     seconds = int(seconds)
 

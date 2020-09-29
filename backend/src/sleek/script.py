@@ -5,6 +5,11 @@ class SleekScript(object):
     UNKNOWN_AUTHOR_STRING = 'Unknown Author'
     UNKNOWN_DATE_STRING = 'Unknown Date'
 
+    CLICK_TYPES_MAP = {
+        click.STRING: 'string',
+        click.INT: 'integer'
+    }
+
     def __init__(self, click_command, name=None, creation_time=None, creating_user=None):
         """
         :param click_command:
@@ -69,8 +74,11 @@ class SleekScript(object):
     def run(self, param_values):
         return self.click_command.callback(**param_values)
 
-    @staticmethod
-    def _get_param_type(click_type):
-        if click_type == click.STRING:
-            return "string"
-        raise Exception("OMG")
+    @classmethod
+    def _get_param_type(cls, click_type):
+        param_type = cls.CLICK_TYPES_MAP.get(click_type)
+
+        if param_type is None:
+            raise NotImplementedError("Type {} not supported!".format(param_type))
+
+        return param_type

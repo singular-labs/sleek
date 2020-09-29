@@ -49,8 +49,8 @@ def print_array(array):
 
 
 @click.command(help="Draws the sierpinski triangle")
-@click.option("--base-height")
-@click.option("--depth")
+@click.option("--base-height", type=int)
+@click.option("--depth", type=int)
 def sierpinski(base_height, depth):
     base_height = int(base_height)
     depth = int(depth)

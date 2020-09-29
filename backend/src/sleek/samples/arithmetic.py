@@ -2,8 +2,8 @@ import click
 
 
 @click.command(help="Computes the 4 basic arithmetic operations")
-@click.argument("x")
-@click.argument("y")
+@click.argument("x", type=int)
+@click.argument("y", type=int)
 def arithmetic(x, y):
     # TODO: Have int params (for now, let it fail)
     x = int(x)

@@ -12,7 +12,6 @@ import {
 
 import css from './ScriptRunner.pcss';
 import Toolbar from "@material-ui/core/es/Toolbar/Toolbar";
-import CircularProgress from "@material-ui/core/es/CircularProgress/CircularProgress";
 import ScriptStatus from "./ScriptStatus";
 
 
@@ -42,12 +41,10 @@ function ScriptRunner(props) {
         <Grid item key={param.name} className={css.gridCell}>
             <ScriptParam
                 name={param.name}
+                type={param.type}
                 value={scriptParamsValues[param.name]}
-                onChange={value => {
-                    let params = Object.assign({}, scriptParamsValues);
-                    params[param.name] = value;
-                    setScriptParamsValues(params)
-                }}
+                scriptParamsValues={scriptParamsValues}
+                setScriptParamsValues={setScriptParamsValues}
             />
         </Grid>
     ));
