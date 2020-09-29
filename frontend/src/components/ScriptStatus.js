@@ -19,7 +19,9 @@ function ScriptStatus(props) {
         case SCRIPT_RUN_STATE_START:
         case SCRIPT_RUN_STATE_RUNNING:
         case SCRIPT_RUN_STATE_POLLING:
-            return <CircularProgress/>
+            return <CircularProgress
+                size={30}
+            />
         case SCRIPT_RUN_STATE_SUCCESS:
             return <CheckCircle fontSize="large" className={css.successIcon}/>
         case SCRIPT_RUN_STATE_FAILURE:
