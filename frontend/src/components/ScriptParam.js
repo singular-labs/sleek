@@ -3,6 +3,12 @@ import TextField from "@material-ui/core/es/TextField/TextField";
 
 import css from './ScriptParam.pcss';
 
+function transformParameterName(parameterName) {
+    if (parameterName) {
+        parameterName = parameterName.replace('_', ' ')
+    }
+    return parameterName
+}
 
 function ScriptParam(props) {
     const {
@@ -12,20 +18,21 @@ function ScriptParam(props) {
     } = props;
 
     return (
-        <TextField
-            label={name}
+        <div
             className={css.textField}
-            value={value || ""}
-            onChange={(event) => onChange(event.target.value)}
-            margin="normal"
-            InputLabelProps={{
-                shrink: true,
-                className: css.label
-            }}
-            InputProps={{
-                className: css.input
-            }}
-        />
+        >
+            <div
+                className={css.label}
+            >
+                {transformParameterName(name)}
+            </div>
+            <input
+                value={value || ""}
+                className={css.input}
+                onChange={(event) => onChange(event.target.value)}
+            >
+            </input>
+        </div>
     );
 }
 

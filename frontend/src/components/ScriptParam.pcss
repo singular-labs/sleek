@@ -1,23 +1,40 @@
+.body {
+    font-family: var(--font);
+}
+
 .label,
 .input,
 .textField {
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .textField {
     width: 100%;
-    font-size: 14px;
+    font-weight: 1000;
+    margin-top: 20px;
 }
+
 .label {
-    font-size: 24px;
+    font-size: 14px;
     font-weight: bold;
     color: #333333!important;
+    text-transform: capitalize;
 }
-.input {
-    font-weight: lighter;
-    margin-top: 30px!important;
-    font-size: 14px!important;
-    color: var(--descriptionColor)!important;
+
+.input,
+.input:hover,
+.input:focus {
     opacity: 0.7;
+    border: none;
+    outline: none;
+    box-shadow: 0 1px var(--titleColor);
+}
+
+.input {
+    width: 400px;
+    font-weight: 300;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--descriptionColor);
 }

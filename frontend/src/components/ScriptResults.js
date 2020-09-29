@@ -14,13 +14,9 @@ function ScriptResults(props) {
 
     return (
         <div className={css.scriptResults}>
-            <Tabs
-                indicatorColor="primary"
-                textColor="primary"
-                value={0}
-            >
-                <Tab label="Log" />
-            </Tabs>
+            <div className={css.resultTitle}>
+                <h5>LOG</h5>
+            </div>
             <Paper elevation={1} className={css.logArea}>
                 <pre>{logs}</pre>
             </Paper>
