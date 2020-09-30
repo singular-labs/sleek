@@ -11,7 +11,7 @@ function transformParameterName(parameterName) {
 
 function isValidParamValue(value, type, options) {
     if (!value) {
-        return true
+        return [true, '']
     }
 
     switch (type) {
