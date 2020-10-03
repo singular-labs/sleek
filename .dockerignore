@@ -1,5 +1,7 @@
 backend/src/sleek/static
 backend/src/sleek.egg-info
+backend/build
+backend/dist
 frontend/node_modules
 frontend/build
 .idea
@@ -9,3 +11,4 @@ Dockerfile
 LICENSE
 **/package-lock.json
 *.pyc
+heroku_deploy.sh

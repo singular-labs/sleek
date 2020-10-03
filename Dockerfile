@@ -1,12 +1,22 @@
 # Dockerfile for installing sleek on Heroku
-FROM ubuntu:latest
+FROM python:3.8.6-slim-buster AS builder
+
 RUN apt-get update -y
-RUN apt-get install -y python3-pip python-dev build-essential
 RUN DEBIAN_FRONTEND="noninteractive" TZ="Europe/London" apt-get install -y npm
 COPY . /app
 WORKDIR /app/backend
 RUN ./build_static.sh
 RUN pip3 install -r requirements.txt
-RUN pip3 install -e .
-WORKDIR /app/backend/src/sleek/samples
-ENTRYPOINT ["python3", "-m", "sleek", "run", "-d", "-h", "0.0.0.0"]
+RUN python3 setup.py sdist bdist_wheel
+
+FROM python:3.8.6-slim-buster
+
+ENV WHEEL_FILENAME sleek-0.1-py3-none-any.whl
+
+COPY --from=builder /app/backend/dist/$WHEEL_FILENAME /$WHEEL_FILENAME
+COPY --from=builder /app/backend/src/sleek/samples /sample-app
+
+RUN pip3 install /$WHEEL_FILENAME
+
+WORKDIR /sample-app
+CMD sh -c "sleek run -h 0.0.0.0 -p ${PORT:=5000}"
