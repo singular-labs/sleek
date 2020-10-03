@@ -29,7 +29,7 @@ function ScriptInfo(props) {
                         }}
                     />
                     <img
-                        src="../../resources/log-file-format.svg"
+                        src="/static/resources/log-file-format.svg"
                         className={css.scriptAvatar}
                     />
                 </div>

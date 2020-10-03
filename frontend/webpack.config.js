@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
         output: {
             path: BUILD_DIR,
             filename: "static/bundle.js",
+            publicPath: '/',
         },
         plugins: [
             new HtmlWebPackPlugin({
@@ -57,10 +58,10 @@ module.exports = (env, argv) => {
             new FileManagerPlugin({
                 onEnd: {
                     copy: [
-                        { source: `${BUILD_DIR}/index.html`, destination: STATIC_DIR },
+                        { source: `${BUILD_DIR}/static/index.html`, destination: STATIC_DIR },
                         { source: `${BUILD_DIR}/static/bundle.js`, destination: STATIC_DIR },
-                        { source: `${RESOURCES_DIR}/favicon.ico`, destination: `${BUILD_DIR}/static/favicon.ico` },
-                        { source: `${RESOURCES_DIR}/favicon.ico`, destination: `${STATIC_DIR}/favicon.ico` },
+                        { source: `${RESOURCES_DIR}`, destination: `${BUILD_DIR}/static/resources` },
+                        { source: `${RESOURCES_DIR}`, destination: `${STATIC_DIR}/resources` },
                     ]
                 }
             })
@@ -76,6 +77,7 @@ module.exports = (env, argv) => {
             ]
         },
         devServer: {
+            contentBase: path.resolve(BUILD_DIR),
             proxy: {
                 '/api': 'http://localhost:5000'
             }

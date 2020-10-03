@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pushd ../../frontend
+pushd ../frontend
 
 npm install
 npm run build-prod

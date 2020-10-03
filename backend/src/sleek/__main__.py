@@ -48,7 +48,7 @@ def run(config_file, host, port, debug):
     if not isinstance(sleek_app, Sleek):
         raise click.UsageError("Invalid sleek configuration - app attribute is not a Sleek app!")
 
-    flask_app = Flask("SleekApp")
+    flask_app = Flask("SleekApp", static_folder=None)
     flask_app.register_blueprint(sleek_blueprint)
     flask_app.sleek_app = sleek_app
 

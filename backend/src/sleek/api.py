@@ -1,7 +1,10 @@
 import attr
+import os
 from flask import jsonify, request, Blueprint, current_app
 
-sleek_blueprint = Blueprint("Sleek", __name__)
+STATIC_FOLDER_PATH = os.path.abspath(os.path.join(__file__, "../static"))
+
+sleek_blueprint = Blueprint("Sleek", "sleek", static_folder=STATIC_FOLDER_PATH, static_url_path="/static/")
 
 
 @sleek_blueprint.route("/")
