@@ -1,0 +1,11 @@
+backend/src/sleek/static
+backend/src/sleek.egg-info
+frontend/node_modules
+frontend/build
+.idea
+Dockerfile
+.dockerignore
+.gitignore
+LICENSE
+**/package-lock.json
+*.pyc
