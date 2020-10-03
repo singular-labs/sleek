@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
             new FileManagerPlugin({
                 onEnd: {
                     copy: [
-                        { source: `${BUILD_DIR}/static/index.html`, destination: STATIC_DIR },
+                        { source: `${BUILD_DIR}/index.html`, destination: STATIC_DIR },
                         { source: `${BUILD_DIR}/static/bundle.js`, destination: STATIC_DIR },
                         { source: `${RESOURCES_DIR}`, destination: `${BUILD_DIR}/static/resources` },
                         { source: `${RESOURCES_DIR}`, destination: `${STATIC_DIR}/resources` },
